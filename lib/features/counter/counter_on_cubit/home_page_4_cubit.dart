@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/presentation/widgets/text_widget.dart';
-import '../../core/utils/helpers.dart';
-import '../../core/utils/show_dialog.dart';
-import 'counter_cubit.dart';
-import '../../core/presentation/pages/other_page.dart';
+import '../../../core/presentation/widgets/text_widget.dart';
+import '../../../core/utils/helpers.dart';
+import '../../../core/utils/show_dialog.dart';
+import 'cubit/counter_cubit.dart';
+import '../../../core/presentation/pages/other_page.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class MyHomePage4Cubit extends StatelessWidget {
+  const MyHomePage4Cubit({super.key});
 
 /*
 ===========================================
