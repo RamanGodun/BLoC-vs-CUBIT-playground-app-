@@ -10,3 +10,8 @@ abstract class UIConstants {
   );
 //
 }
+
+enum AppTheme {
+  light,
+  dark,
+}

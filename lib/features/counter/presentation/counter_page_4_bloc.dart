@@ -5,7 +5,8 @@ import '../../../core/presentation/pages/other_page.dart';
 import '../../../core/presentation/widgets/text_widget.dart';
 import '../../../core/utils/helpers.dart';
 import '../../../core/utils/show_dialog.dart';
-import 'counter/counter_bloc.dart';
+import 'theme_page.dart';
+import '../blocs/_counter_bloc/counter_bloc.dart';
 
 class MyHomePage4BLoC extends StatelessWidget {
   const MyHomePage4BLoC({super.key});
@@ -13,6 +14,13 @@ class MyHomePage4BLoC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () => Helpers.pushTo(context, const ThemePage()),
+              icon: const Icon(Icons.sunny))
+        ],
+      ),
       /*
       🟢 BlocListener використовується для відстеження змін стану та виклику побічних ефектів (side effects).
       - Тут він реагує на зміни у `CounterBloc`.
