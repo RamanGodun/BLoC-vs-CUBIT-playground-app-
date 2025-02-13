@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/presentation/constants.dart';
-import 'features/counter/counter_on_bloc/bloc/counter_bloc.dart';
-import 'features/counter/counter_on_bloc/home_page_4_bloc.dart';
+import 'features/counter/blocs/counter/counter_bloc.dart';
+import 'features/counter/blocs/home_page_4_bloc.dart';
 // import 'features/counter_cubit/home_page_4_cubit.dart';
 // import 'features/counter_cubit/counter_cubit.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/widgets/text_widget.dart';
 import '../../../core/utils/helpers.dart';
 import '../../../core/utils/show_dialog.dart';
-import 'cubit/counter_cubit.dart';
+import 'counter/counter_cubit.dart';
 import '../../../core/presentation/pages/other_page.dart';
 
 class MyHomePage4Cubit extends StatelessWidget {
