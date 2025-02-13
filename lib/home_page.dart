@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cubits/counter/counter_cubit.dart';
-import 'other_page.dart';
+import 'features/counter_cubit/counter_cubit.dart';
+import 'core/presentation/pages/other_page.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
