@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/widgets/text_widget.dart';
-import '../cubit/theme/theme_cubit.dart';
+import '../cubits/theme/theme_cubit.dart';
 // import '../_theme_bloc/theme_bloc.dart';
 
 class ThemePage extends StatelessWidget {
