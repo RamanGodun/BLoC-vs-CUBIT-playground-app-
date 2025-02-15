@@ -17,9 +17,7 @@ final class CounterWithColorState extends Equatable {
   @override
   String toString() => 'CounterState(counter: $counter)';
 
-  CounterWithColorState copyWith({
-    int? counter,
-  }) {
+  CounterWithColorState copyWith({int? counter}) {
     return CounterWithColorState(
       counter: counter ?? this.counter,
     );

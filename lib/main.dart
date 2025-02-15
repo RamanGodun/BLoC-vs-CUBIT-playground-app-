@@ -29,8 +29,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
         BlocProvider<CounterWithColorCubit>(
-            create: (context) =>
-                CounterWithColorCubit(colorCubit: context.read<ColorCubit>())),
+            create: (context) => CounterWithColorCubit(
+                // colorCubit: context.read<ColorCubit>(), // need when don't use BlocListener in UI
+                )),
       ],
       // child: BlocBuilder<ThemeBloc, ThemeState>( // when use BLoc for theme
       child: BlocBuilder<ThemeCubit, CubitThemeState>(
