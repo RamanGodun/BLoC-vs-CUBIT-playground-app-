@@ -22,6 +22,7 @@ class ThemePage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {
             final isDarkMode = Random().nextBool();
+
             if (useBloc) {
               context
                   .read<ThemeOnBloc>()
@@ -29,6 +30,11 @@ class ThemePage extends StatelessWidget {
             } else {
               context.read<ThemeCubit>().toggleTheme(isDarkMode);
             }
+
+            // 🟢 Оновлення теми у провайдері
+            context
+                .read<Provider4StateShapeSwitching>()
+                .toggleThemeMode(isDarkMode);
           },
           child: const TextWidget('Toggle Theme', TextType.button),
         ),

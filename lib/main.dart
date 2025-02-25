@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
-import 'core/presentation/constants.dart';
 import 'core/state_managers/provider_4_state_shape_switching.dart';
 import 'features/counter/blocs/_theme_bloc/theme_bloc.dart';
 import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
@@ -17,47 +16,40 @@ import 'features/counter/cubits/_theme/theme_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
-  final isDarkMode = prefs.getBool('isDarkMode') ?? false;
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => Provider4StateShapeSwitching()),
+        ChangeNotifierProvider(
+            create: (_) => Provider4StateShapeSwitching(prefs: prefs)),
         BlocProvider(create: (_) => CounterOnBloc()),
         BlocProvider(create: (_) => CounterOnCubit()),
         BlocProvider(create: (_) => ThemeOnBloc()),
         BlocProvider(create: (_) => ThemeCubit()),
       ],
-      child: AppWrapper(initialDarkMode: isDarkMode),
+      child: AppWrapper(prefs: prefs),
     ),
   );
 }
 
 class AppWrapper extends StatelessWidget {
-  final bool initialDarkMode;
+  final SharedPreferences prefs;
 
-  const AppWrapper({super.key, required this.initialDarkMode});
+  const AppWrapper({super.key, required this.prefs});
 
   @override
   Widget build(BuildContext context) {
     final useBloc = context.watch<Provider4StateShapeSwitching>().useBloc;
+    final initialDarkMode = useBloc
+        ? prefs.getBool('isDarkModeBloc') ?? false
+        : prefs.getBool('isDarkModeCubit') ?? false;
 
-    return useBloc
-        ? BlocBuilder<ThemeOnBloc, ThemeOnBLoCState>(
-            builder: (context, state) => _buildMaterialApp(state.appTheme),
-          )
-        : BlocBuilder<ThemeCubit, CubitThemeState>(
-            builder: (context, state) => _buildMaterialApp(state.appTheme),
-          );
-  }
-
-  MaterialApp _buildMaterialApp(AppTheme appTheme) {
     return MaterialApp(
       title: 'BLoC or Cubit',
       debugShowCheckedModeBanner: false,
-      theme: appTheme == AppTheme.light
-          ? ThemeData.light(useMaterial3: true)
-          : ThemeData.dark(useMaterial3: true),
+      theme: initialDarkMode
+          ? ThemeData.dark(useMaterial3: true)
+          : ThemeData.light(useMaterial3: true),
       home: const HomePage(),
     );
   }
