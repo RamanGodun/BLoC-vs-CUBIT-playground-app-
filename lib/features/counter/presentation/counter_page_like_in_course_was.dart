@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/widgets/text_widget.dart';
 import '../../../core/utils/helpers.dart';
 import '../../../core/utils/show_dialog.dart';
-import '../cubits/counter/counter_cubit.dart';
+import '../blocs/_counter_bloc/counter_bloc.dart';
+import '../cubits/_counter/counter_cubit.dart';
 import '../../../core/presentation/pages/other_page.dart';
 import 'theme_page.dart';
 
-class MyHomePage4Cubit extends StatelessWidget {
-  const MyHomePage4Cubit({super.key});
+class MyHomePageLikeInCourseWas extends StatelessWidget {
+  const MyHomePageLikeInCourseWas({super.key});
 
 /*
 ===========================================
@@ -20,15 +21,29 @@ class MyHomePage4Cubit extends StatelessWidget {
 */
   @override
   Widget build(BuildContext context) {
-    final readCounterCubit = context.read<CounterOnCubit>();
-    final selectCounterCubit =
-        context.select<CounterOnCubit, int>((cubit) => cubit.state.counter);
+    // final readCounterCubit = context.read<CounterOnCubit>(); // ! when use CUBIT
+    // final selectCounterCubit =
+    //     context.select<CounterOnCubit, int>((cubit) => cubit.state.counter); // ! when use CUBIT
 
     return MultiBlocListener(
       listeners: [
-// when use BLoC, then NEXT:
-        // BlocListener<CounterBloc, CounterBLoCState>(
-// when use CUBIT, then NEXT:
+        // ! when use BLoC, then NEXT:
+        /*
+      🟢 BlocListener використовується для відстеження змін стану та виклику побічних ефектів (side effects).
+      - Тут він реагує на зміни у `CounterBloc`.
+      - НЕ впливає на UI напряму, лише запускає певні дії, такі як показ діалогового вікна або навігацію.
+      */
+        BlocListener<CounterOnBloc, CounterOnBLoCState>(
+          listener: (context, state) {
+            if (state.counter == 3) {
+              DialogService.showAlertDialog(
+                  context, 'counter is ${state.counter}');
+            } else if (state.counter == -1) {
+              Helpers.pushTo(context, const OtherPage());
+            }
+          },
+        ),
+        // ! when use CUBIT, then NEXT:
         BlocListener<CounterOnCubit, CounterOnCubitState>(
           listener: (context, state) {
             if (state.counter == 3) {
@@ -54,10 +69,11 @@ class MyHomePage4Cubit extends StatelessWidget {
               const SizedBox(height: 250),
               const TextWidget('Поточне значення:', TextType.headline),
               TextWidget(
+                '${context.watch<CounterOnBloc>().state.counter}',
                 /*
                 📝 `selectCounterCubit` оновлює UI тільки при зміні `counter`
                 */
-                selectCounterCubit.toString(),
+                // selectCounterCubit.toString(),
                 TextType.headline,
               ),
             ],
@@ -67,13 +83,17 @@ class MyHomePage4Cubit extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              onPressed: () => readCounterCubit.increment(),
+              onPressed: () => BlocProvider.of<CounterOnBloc>(context)
+                  .add(IncrementCounterEvent()),
+              // () => readCounterCubit.increment(), // ! when use CUBIT
               heroTag: 'increment',
               child: const Icon(Icons.add),
             ),
             const SizedBox(width: 10.0),
             FloatingActionButton(
-              onPressed: () => readCounterCubit.decrement(),
+              onPressed: () => context.read<CounterOnBloc>().add(
+                  DecrementCounterEvent()), // 🟢 Альтернативний спосіб додавання події до BLoC:
+              //  () => readCounterCubit.decrement(), // ! when sue CUBIT
               heroTag: 'decrement',
               child: const Icon(Icons.remove),
             ),

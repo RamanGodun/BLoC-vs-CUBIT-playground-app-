@@ -6,7 +6,7 @@ import '../../../core/presentation/widgets/text_widget.dart';
 /*
 Cubits
  */
-import '../cubits/theme/theme_cubit.dart';
+import '../cubits/_theme/theme_cubit.dart';
 
 /*
 BLoCs

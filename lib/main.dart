@@ -4,6 +4,7 @@ import 'core/presentation/constants.dart';
 
 /* BLoCs
  */
+import 'counter_home_page.dart';
 import 'features/counter/blocs/_theme_bloc/theme_bloc.dart';
 import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
 import 'features/counter/blocs/color/color_bloc.dart';
@@ -11,14 +12,14 @@ import 'features/counter/blocs/counter_which_depends_on_color/counter_bloc.dart'
 
 /* CUBITS
  */
-import 'features/counter/cubits/counter/counter_cubit.dart';
-import 'features/counter/cubits/theme/theme_cubit.dart';
+import 'features/counter/cubits/_counter/counter_cubit.dart';
+import 'features/counter/cubits/_theme/theme_cubit.dart';
 import 'features/counter/cubits/color/color_cubit.dart';
 import 'features/counter/cubits/counter_which_depends_on_color/counter_which_depends_on_color_cubit.dart';
 
 /* PRESENTATION
  */
-import 'features/counter/presentation/counter_depends_on_color_page.dart';
+// import 'features/counter/presentation/counter_depends_on_color_page.dart';
 // import 'features/counter/presentation/counter_page_4_cubit.dart';
 // import 'features/counter/blocs/presentation/home_page_4_bloc.dart';
 
@@ -66,10 +67,9 @@ class MyApp extends StatelessWidget {
             theme: themeState.appTheme == AppTheme.light
                 ? ThemeData.light(useMaterial3: true)
                 : ThemeData.dark(useMaterial3: true),
-            home:
-                // const MyHomePage4BLoC(), // when use BLoC for counter
-                // const MyHomePage4Cubit(), //  when use Cubit for counter
-                const CounterDependsOnColorPage(),
+
+            home: const MyHomePage(),
+            // const CounterDependsOnColorPage(),
           );
         },
       ),

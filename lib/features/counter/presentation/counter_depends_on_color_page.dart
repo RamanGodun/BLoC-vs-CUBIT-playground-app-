@@ -57,6 +57,12 @@ class CounterDependsOnColorPage extends StatelessWidget {
             ),
             const SizedBox(height: 20.0),
             TextWidget(
+              /*
+            🟢 Використання `context.watch<CounterBloc>()`
+            - `watch` означає, що цей віджет буде оновлюватися при кожній зміні стану `CounterBloc`.
+            - Кожного разу, коли `CounterState.counter` змінюється, цей віджет перерисовується.
+            - Якщо потрібно слідкувати лише за зміною `counter`, краще використовувати `context.select()`.
+            */
               '${context.watch<CounterBlocWhichDependsOnColorBLoC>().state.counter}',
               // '${context.watch<CounterCubitWhichDependsOnColorCubit>().state.counter}',
               TextType.headline,
