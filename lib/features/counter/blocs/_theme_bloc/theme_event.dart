@@ -1,13 +1,13 @@
 part of 'theme_bloc.dart';
 
-sealed class ThemeEvent extends Equatable {
-  const ThemeEvent();
+sealed class ThemeOnBLoCEvent extends Equatable {
+  const ThemeOnBLoCEvent();
 
   @override
   List<Object> get props => [];
 }
 
-final class ChangeThemeEvent extends ThemeEvent {
+final class ChangeThemeEvent extends ThemeOnBLoCEvent {
   const ChangeThemeEvent({
     required this.randInt,
   });

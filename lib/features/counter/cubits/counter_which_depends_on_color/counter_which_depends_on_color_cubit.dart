@@ -1,27 +1,26 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import '../color/color_cubit.dart';
 
-part 'counter_with_color_state.dart';
-
-class CounterWithColorCubit extends Cubit<CounterWithColorState> {
-  CounterWithColorCubit() : super(CounterWithColorState.initial());
-
-  void changeCounter(int incrementSize) {
-    emit(state.copyWith(counter: state.counter + incrementSize));
-  }
-}
+part 'counter_which_depends_on_color_state.dart';
 
 /*
+------------------------------------------------------------
 Next when DON'T use BLOCK LISTENER in UI
+------------------------------------------------------------
+ */
 
-class CounterWithColorCubit extends Cubit<CounterWithColorState> {
+class CounterCubitWhichDependsOnColorCubit
+    extends Cubit<CounterCubitWhichDependsOnColorCubitState> {
   int incrementSize = 1;
   final ColorCubit colorCubit;
   late final StreamSubscription colorSubscription;
 
-  CounterWithColorCubit({
+  CounterCubitWhichDependsOnColorCubit({
     required this.colorCubit,
-  }) : super(CounterWithColorState.initial()) {
+  }) : super(CounterCubitWhichDependsOnColorCubitState.initial()) {
     colorSubscription = colorCubit.stream.listen((ColorState colorState) {
       switch (colorState.color) {
         case Colors.red:
@@ -54,4 +53,17 @@ class CounterWithColorCubit extends Cubit<CounterWithColorState> {
   }
 }
 
+
+/*
+------------------------------------------------------------
+Next when use BLoC LISTENER in UI
+------------------------------------------------------------
+
+class CounterWithColorCubit extends Cubit<CounterWithColorState> {
+  CounterWithColorCubit() : super(CounterWithColorState.initial());
+
+  void changeCounter(int incrementSize) {
+    emit(state.copyWith(counter: state.counter + incrementSize));
+  }
+}
  */

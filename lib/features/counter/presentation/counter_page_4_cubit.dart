@@ -20,13 +20,16 @@ class MyHomePage4Cubit extends StatelessWidget {
 */
   @override
   Widget build(BuildContext context) {
-    final readCounterCubit = context.read<CounterCubit>();
+    final readCounterCubit = context.read<CounterOnCubit>();
     final selectCounterCubit =
-        context.select<CounterCubit, int>((cubit) => cubit.state.counter);
+        context.select<CounterOnCubit, int>((cubit) => cubit.state.counter);
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<CounterCubit, CounterState>(
+// when use BLoC, then NEXT:
+        // BlocListener<CounterBloc, CounterBLoCState>(
+// when use CUBIT, then NEXT:
+        BlocListener<CounterOnCubit, CounterOnCubitState>(
           listener: (context, state) {
             if (state.counter == 3) {
               DialogService.showAlertDialog(

@@ -1,12 +1,12 @@
 part of 'theme_bloc.dart';
 
-final class ThemeState extends Equatable {
-  const ThemeState({
+final class ThemeOnBLoCState extends Equatable {
+  const ThemeOnBLoCState({
     this.appTheme = AppTheme.light,
   });
 
-  factory ThemeState.initial() {
-    return const ThemeState();
+  factory ThemeOnBLoCState.initial() {
+    return const ThemeOnBLoCState();
   }
 
   final AppTheme appTheme;
@@ -17,10 +17,10 @@ final class ThemeState extends Equatable {
   @override
   String toString() => 'ThemeState(appTheme: $appTheme)';
 
-  ThemeState copyWith({
+  ThemeOnBLoCState copyWith({
     AppTheme? appTheme,
   }) {
-    return ThemeState(
+    return ThemeOnBLoCState(
       appTheme: appTheme ?? this.appTheme,
     );
   }

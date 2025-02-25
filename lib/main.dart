@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/presentation/constants.dart';
-import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
-import 'features/counter/blocs/_theme_bloc/theme_bloc.dart';
-import 'features/counter/cubits/color/color_cubit.dart';
-import 'features/counter/cubits/counter/counter_cubit.dart';
-import 'features/counter/cubits/counter_with_color/counter_with_color_cubit.dart';
-import 'features/counter/cubits/theme/theme_cubit.dart';
-import 'features/counter/presentation/counter_with_color_page.dart';
 
+/* BLoCs
+ */
+import 'features/counter/blocs/_theme_bloc/theme_bloc.dart';
+import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
+import 'features/counter/blocs/color/color_bloc.dart';
+import 'features/counter/blocs/counter_which_depends_on_color/counter_bloc.dart';
+
+/* CUBITS
+ */
+import 'features/counter/cubits/counter/counter_cubit.dart';
+import 'features/counter/cubits/theme/theme_cubit.dart';
+import 'features/counter/cubits/color/color_cubit.dart';
+import 'features/counter/cubits/counter_which_depends_on_color/counter_which_depends_on_color_cubit.dart';
+
+/* PRESENTATION
+ */
+import 'features/counter/presentation/counter_depends_on_color_page.dart';
 // import 'features/counter/presentation/counter_page_4_cubit.dart';
 // import 'features/counter/blocs/presentation/home_page_4_bloc.dart';
 
@@ -23,14 +33,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CounterBloc>(create: (context) => CounterBloc()),
-        BlocProvider<CounterCubit>(create: (context) => CounterCubit()),
-        BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
-        BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
+        /*
+         BLoCs
+         */
+        BlocProvider<CounterOnBloc>(create: (context) => CounterOnBloc()),
+        BlocProvider<ThemeOnBloc>(create: (context) => ThemeOnBloc()),
+        BlocProvider<ColorOnBloc>(create: (context) => ColorOnBloc()),
+        BlocProvider<CounterBlocWhichDependsOnColorBLoC>(
+          create: (context) => CounterBlocWhichDependsOnColorBLoC(
+            colorBloc: context.read<ColorOnBloc>(),
+          ),
+        ),
+
+        /*
+         CUBITS
+         */
+        BlocProvider<CounterOnCubit>(create: (context) => CounterOnCubit()),
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
-        BlocProvider<CounterWithColorCubit>(
-            create: (context) => CounterWithColorCubit(
-                // colorCubit: context.read<ColorCubit>(), // need when don't use BlocListener in UI
+        BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
+        BlocProvider<CounterCubitWhichDependsOnColorCubit>(
+            create: (context) => CounterCubitWhichDependsOnColorCubit(
+                  colorCubit: context.read<
+                      ColorCubit>(), // need only when don't use BlocListener in UI
                 )),
       ],
       // child: BlocBuilder<ThemeBloc, ThemeState>( // when use BLoc for theme
@@ -45,7 +69,7 @@ class MyApp extends StatelessWidget {
             home:
                 // const MyHomePage4BLoC(), // when use BLoC for counter
                 // const MyHomePage4Cubit(), //  when use Cubit for counter
-                const CounterWithColorOnCubitPage(),
+                const CounterDependsOnColorPage(),
           );
         },
       ),

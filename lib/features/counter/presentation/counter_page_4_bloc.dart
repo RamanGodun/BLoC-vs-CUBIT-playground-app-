@@ -26,7 +26,7 @@ class MyHomePage4BLoC extends StatelessWidget {
       - Тут він реагує на зміни у `CounterBloc`.
       - НЕ впливає на UI напряму, лише запускає певні дії, такі як показ діалогового вікна або навігацію.
       */
-      body: BlocListener<CounterBloc, CounterState>(
+      body: BlocListener<CounterOnBloc, CounterOnBLoCState>(
         listener: (context, state) {
           if (state.counter == 3) {
             // Якщо `counter` дорівнює 3, показуємо діалогове вікно
@@ -49,7 +49,7 @@ class MyHomePage4BLoC extends StatelessWidget {
             - Якщо потрібно слідкувати лише за зміною `counter`, краще використовувати `context.select()`.
             */
             TextWidget(
-              '${context.watch<CounterBloc>().state.counter}',
+              '${context.watch<CounterOnBloc>().state.counter}',
               TextType.headline,
             ),
           ],
@@ -72,7 +72,7 @@ class MyHomePage4BLoC extends StatelessWidget {
               - Використовується для відправки події `IncrementCounterEvent`
               - `Bloc` отримає цю подію і оновить стан
               */
-              BlocProvider.of<CounterBloc>(context)
+              BlocProvider.of<CounterOnBloc>(context)
                   .add(IncrementCounterEvent());
             },
             heroTag: 'increment',
@@ -86,7 +86,7 @@ class MyHomePage4BLoC extends StatelessWidget {
               - Використання `context.read<CounterBloc>().add()`
               - Виконує ту ж функцію, що й `BlocProvider.of<CounterBloc>(context).add()`, але запис виглядає чистіше.
               */
-              context.read<CounterBloc>().add(DecrementCounterEvent());
+              context.read<CounterOnBloc>().add(DecrementCounterEvent());
             },
             heroTag: 'decrement',
             child: const Icon(Icons.remove),

@@ -10,13 +10,13 @@ part 'counter_state.dart';
 - Використовує `emit()` для оновлення стану.
 - Всі події обробляються в методах `_incrementCounter()` та `_decrementCounter()`.
 */
-class CounterBloc extends Bloc<CounterEvent, CounterState> {
+class CounterOnBloc extends Bloc<CounterOnBLoCEvent, CounterOnBLoCState> {
   /*
   🟢 Конструктор `CounterBloc`
   - Викликає `super(CounterState.initial())`, що встановлює початковий стан `counter = 0`.
   - Реєструє обробники подій через `on<Event>((event, emit) {...})`.
   */
-  CounterBloc() : super(CounterState.initial()) {
+  CounterOnBloc() : super(CounterOnBLoCState.initial()) {
     /*
     🟢 Обробка `IncrementCounterEvent`
     - При виклику цієї події збільшує `counter` на 1.
@@ -39,7 +39,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   */
   void _incrementCounter(
     IncrementCounterEvent event,
-    Emitter<CounterState> emit,
+    Emitter<CounterOnBLoCState> emit,
   ) {
     emit(state.copyWith(counter: state.counter + 1));
   }
@@ -51,7 +51,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   */
   void _decrementCounter(
     DecrementCounterEvent event,
-    Emitter<CounterState> emit,
+    Emitter<CounterOnBLoCState> emit,
   ) {
     emit(state.copyWith(counter: state.counter - 1));
   }
