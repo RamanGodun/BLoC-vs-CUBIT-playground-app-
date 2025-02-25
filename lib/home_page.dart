@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'core/presentation/widgets/text_widget.dart';
 import 'core/state_managers/use_bloc_provider.dart';
 import 'counter_page.dart';
@@ -10,14 +11,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final useBloc = UseBlocProvider.of(context).useBloc;
-    final toggleUseBloc = UseBlocProvider.of(context).toggleUseBloc;
+    final useBloc = context.watch<UseBlocProvider>().useBloc;
+    final toggleUseBloc = context.read<UseBlocProvider>().toggleUseBloc;
 
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(
-          'Counter on ${useBloc ? 'BLoC' : 'Cubit'}',
-          TextType.titleMedium,
+        title: Center(
+          child: TextWidget(
+            'Counter on ${useBloc ? 'BLoC' : 'Cubit'}',
+            TextType.titleMedium,
+          ),
         ),
         actions: [
           IconButton(

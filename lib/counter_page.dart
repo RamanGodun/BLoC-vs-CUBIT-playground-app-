@@ -13,7 +13,8 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final useBloc = UseBlocProvider.of(context).useBloc;
+    final useBloc =
+        context.select<UseBlocProvider, bool>((provider) => provider.useBloc);
 
     return Scaffold(
       appBar: AppBar(
@@ -48,20 +49,16 @@ class CounterPage extends StatelessWidget {
 
   // 🟢 Віджет для відображення лічильника
   Widget _buildCounterDisplay(BuildContext context, bool useBloc) {
-    return useBloc
-        ? BlocBuilder<CounterOnBloc, CounterOnBLoCState>(
-            builder: (context, state) =>
-                TextWidget('${state.counter}', TextType.headline),
-          )
-        : BlocBuilder<CounterOnCubit, CounterOnCubitState>(
-            builder: (context, state) =>
-                TextWidget('${state.counter}', TextType.headline),
-          );
+    final counter = useBloc
+        ? context.select<CounterOnBloc, int>((bloc) => bloc.state.counter)
+        : context.select<CounterOnCubit, int>((cubit) => cubit.state.counter);
+
+    return TextWidget('$counter', TextType.headline);
   }
 
   // 🟢 Кнопки для збільшення/зменшення лічильника
   Widget _buildFloatingActionButtons(BuildContext context) {
-    final counterManager = CounterFactory.create(context);
+    final counterManager = CounterFactory().create(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,

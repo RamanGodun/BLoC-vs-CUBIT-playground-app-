@@ -1,9 +1,10 @@
 import 'package:bloc_by_korean/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 /* BLoCs */
-import 'core/state_managers/use_bloc_wrapper.dart';
+import 'core/state_managers/use_bloc_provider.dart';
 import 'features/counter/blocs/_theme_bloc/theme_bloc.dart';
 import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
 
@@ -15,16 +16,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
-    MultiBlocProvider(
+    MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => UseBlocProvider()),
         BlocProvider(create: (_) => CounterOnBloc()),
         BlocProvider(create: (_) => CounterOnCubit()),
         BlocProvider(create: (_) => ThemeOnBloc()),
         BlocProvider(create: (_) => ThemeCubit()),
       ],
-      child: const UseBlocWrapper(
-        child: MyApp(),
-      ),
+      child: const MyApp(),
     ),
   );
 }
