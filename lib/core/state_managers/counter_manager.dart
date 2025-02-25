@@ -8,8 +8,6 @@ abstract class CounterManager {
   void decrement();
 }
 
-// 🟢 ============= Interface implementation ============== 🟢 //
-
 // 🟢 BLoC Implementation of CounterManager
 class BlocCounterManager implements CounterManager {
   final CounterOnBloc _bloc;

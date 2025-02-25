@@ -1,30 +1,32 @@
+import 'package:bloc_by_korean/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/presentation/constants.dart';
 
-/* BLoCs
- */
-import 'counter_home_page.dart';
+/* BLoCs */
+import 'core/state_managers/use_bloc_wrapper.dart';
 import 'features/counter/blocs/_theme_bloc/theme_bloc.dart';
 import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
-import 'features/counter/blocs/color/color_bloc.dart';
-import 'features/counter/blocs/counter_which_depends_on_color/counter_bloc.dart';
 
-/* CUBITS
- */
+/* CUBITS */
 import 'features/counter/cubits/_counter/counter_cubit.dart';
 import 'features/counter/cubits/_theme/theme_cubit.dart';
-import 'features/counter/cubits/color/color_cubit.dart';
-import 'features/counter/cubits/counter_which_depends_on_color/counter_which_depends_on_color_cubit.dart';
 
-/* PRESENTATION
- */
-// import 'features/counter/presentation/counter_depends_on_color_page.dart';
-// import 'features/counter/presentation/counter_page_4_cubit.dart';
-// import 'features/counter/blocs/presentation/home_page_4_bloc.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CounterOnBloc()),
+        BlocProvider(create: (_) => CounterOnCubit()),
+        BlocProvider(create: (_) => ThemeOnBloc()),
+        BlocProvider(create: (_) => ThemeCubit()),
+      ],
+      child: const UseBlocWrapper(
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -32,47 +34,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        /*
-         BLoCs
-         */
-        BlocProvider<CounterOnBloc>(create: (context) => CounterOnBloc()),
-        BlocProvider<ThemeOnBloc>(create: (context) => ThemeOnBloc()),
-        BlocProvider<ColorOnBloc>(create: (context) => ColorOnBloc()),
+    return MaterialApp(
+      title: 'BLoC or Cubit',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(useMaterial3: true),
+      home: const HomePage(),
+    );
+  }
+}
+
+
+/*
+
+  BlocProvider<ColorOnBloc>(create: (context) => ColorOnBloc()),
         BlocProvider<CounterBlocWhichDependsOnColorBLoC>(
           create: (context) => CounterBlocWhichDependsOnColorBLoC(
             colorBloc: context.read<ColorOnBloc>(),
           ),
         ),
 
-        /*
-         CUBITS
-         */
-        BlocProvider<CounterOnCubit>(create: (context) => CounterOnCubit()),
-        BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
-        BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
+ BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
         BlocProvider<CounterCubitWhichDependsOnColorCubit>(
             create: (context) => CounterCubitWhichDependsOnColorCubit(
                   colorCubit: context.read<
                       ColorCubit>(), // need only when don't use BlocListener in UI
                 )),
-      ],
-      // child: BlocBuilder<ThemeBloc, ThemeState>( // when use BLoc for theme
-      child: BlocBuilder<ThemeCubit, CubitThemeState>(
-        builder: (context, themeState) {
-          return MaterialApp(
-            title: 'BLoC or Cubit',
-            debugShowCheckedModeBanner: false,
-            theme: themeState.appTheme == AppTheme.light
-                ? ThemeData.light(useMaterial3: true)
-                : ThemeData.dark(useMaterial3: true),
 
-            home: const MyHomePage(),
-            // const CounterDependsOnColorPage(),
-          );
-        },
-      ),
-    );
-  }
-}
+ */
