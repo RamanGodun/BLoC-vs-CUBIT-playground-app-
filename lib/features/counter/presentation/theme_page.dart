@@ -2,22 +2,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/presentation/widgets/text_widget.dart';
-
-/*
-Cubits
- */
+import '../../../core/state_managers/provider_4_state_shape_switching.dart';
 import '../cubits/_theme/theme_cubit.dart';
-
-/*
-BLoCs
- */
-// import '../_theme_bloc/theme_bloc.dart';
+import '../blocs/_theme_bloc/theme_bloc.dart';
+import 'package:provider/provider.dart';
 
 class ThemePage extends StatelessWidget {
   const ThemePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final useBloc = context.watch<Provider4StateShapeSwitching>().useBloc;
+
     return Scaffold(
       appBar: AppBar(
         title: const TextWidget('Theme screen', TextType.titleMedium),
@@ -25,12 +21,16 @@ class ThemePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            final int randInt = Random().nextInt(10);
-            print('randInt: $randInt');
-            context.read<ThemeCubit>().changeTheme(randInt); // when use CUBIT
-            // context.read<ThemeBloc>().add(ChangeThemeEvent(randInt: randInt)); // when use BLoC
+            final isDarkMode = Random().nextBool();
+            if (useBloc) {
+              context
+                  .read<ThemeOnBloc>()
+                  .add(ChangeThemeEvent(isDarkMode: isDarkMode));
+            } else {
+              context.read<ThemeCubit>().toggleTheme(isDarkMode);
+            }
           },
-          child: const TextWidget('Change Theme', TextType.button),
+          child: const TextWidget('Toggle Theme', TextType.button),
         ),
       ),
     );

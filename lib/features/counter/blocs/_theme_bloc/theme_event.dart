@@ -8,15 +8,13 @@ sealed class ThemeOnBLoCEvent extends Equatable {
 }
 
 final class ChangeThemeEvent extends ThemeOnBLoCEvent {
-  const ChangeThemeEvent({
-    required this.randInt,
-  });
+  final bool isDarkMode;
 
-  final int randInt;
+  const ChangeThemeEvent({required this.isDarkMode});
 
   @override
-  String toString() => 'ChangeThemeEvent(randInt: $randInt)';
+  List<Object> get props => [isDarkMode];
 
   @override
-  List<Object> get props => [randInt];
+  String toString() => 'ChangeThemeEvent(isDarkMode: $isDarkMode)';
 }

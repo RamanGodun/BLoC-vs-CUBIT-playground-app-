@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/state_managers/use_bloc_provider.dart';
 import 'core/state_managers/counter_factory.dart';
 import 'core/presentation/widgets/text_widget.dart';
-import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
-import 'features/counter/cubits/_counter/counter_cubit.dart';
+import 'core/state_managers/counter_manager.dart';
 import 'core/utils/show_dialog.dart';
 import 'core/presentation/pages/other_page.dart';
+import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
+import 'features/counter/cubits/_counter/counter_cubit.dart';
+import 'core/state_managers/provider_4_state_shape_switching.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final useBloc =
-        context.select<UseBlocProvider, bool>((provider) => provider.useBloc);
+    final useBloc = context.select<Provider4StateShapeSwitching, bool>(
+      (provider) => provider.useBloc,
+    );
+    final counterManager = CounterFactory().create(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +46,7 @@ class CounterPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: _buildFloatingActionButtons(context),
+      floatingActionButton: _buildFloatingActionButtons(counterManager),
     );
   }
 
@@ -57,9 +60,7 @@ class CounterPage extends StatelessWidget {
   }
 
   // 🟢 Кнопки для збільшення/зменшення лічильника
-  Widget _buildFloatingActionButtons(BuildContext context) {
-    final counterManager = CounterFactory().create(context);
-
+  Widget _buildFloatingActionButtons(CounterManager counterManager) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
