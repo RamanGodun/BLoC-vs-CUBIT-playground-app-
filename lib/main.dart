@@ -1,11 +1,10 @@
 import 'package:bloc_by_korean/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
-import 'core/state_managers/provider_4_state_shape_switching.dart';
+import 'core/state_managers/app_state/app_state_cubit.dart';
 import 'features/counter/blocs/_theme_bloc/theme_bloc.dart';
 import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
 
@@ -18,39 +17,39 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
 
   runApp(
-    MultiProvider(
+    MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (_) => Provider4StateShapeSwitching(prefs: prefs)),
+        BlocProvider(create: (_) => AppStateCubit(prefs)),
         BlocProvider(create: (_) => CounterOnBloc()),
         BlocProvider(create: (_) => CounterOnCubit()),
         BlocProvider(create: (_) => ThemeOnBloc()),
         BlocProvider(create: (_) => ThemeCubit()),
       ],
-      child: AppWrapper(prefs: prefs),
+      child: const AppWrapper(),
     ),
   );
 }
 
 class AppWrapper extends StatelessWidget {
-  final SharedPreferences prefs;
-
-  const AppWrapper({super.key, required this.prefs});
+  const AppWrapper({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final useBloc = context.watch<Provider4StateShapeSwitching>().useBloc;
-    final initialDarkMode = useBloc
-        ? prefs.getBool('isDarkModeBloc') ?? false
-        : prefs.getBool('isDarkModeCubit') ?? false;
+    return BlocBuilder<AppStateCubit, AppState>(
+      builder: (context, state) {
+        final isDarkMode = state.isUseBloc
+            ? state.isDarkThemeForBloc
+            : state.isDarkThemeForCubit;
 
-    return MaterialApp(
-      title: 'BLoC or Cubit',
-      debugShowCheckedModeBanner: false,
-      theme: initialDarkMode
-          ? ThemeData.dark(useMaterial3: true)
-          : ThemeData.light(useMaterial3: true),
-      home: const HomePage(),
+        return MaterialApp(
+          title: 'BLoC or Cubit',
+          debugShowCheckedModeBanner: false,
+          theme: isDarkMode
+              ? ThemeData.dark(useMaterial3: true)
+              : ThemeData.light(useMaterial3: true),
+          home: const HomePage(),
+        );
+      },
     );
   }
 }
