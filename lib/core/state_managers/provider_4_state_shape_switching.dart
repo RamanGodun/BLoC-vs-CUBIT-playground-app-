@@ -14,22 +14,6 @@ class Provider4StateShapeSwitching extends ChangeNotifier {
   bool get useBloc => _useBloc;
   ThemeMode get themeMode => _themeMode;
 
-  // 🟢 Перемикання між BLoC та Cubit
-  void toggleUseBloc() {
-    _saveThemeMode(); // Зберігаємо поточний стан теми для поточного менеджера
-    _useBloc = !_useBloc;
-    _loadThemeForCurrentManager(); // Завантажуємо тему для нового менеджера
-    _saveUseBloc();
-    notifyListeners();
-  }
-
-  // 🟢 Перемикання теми
-  void toggleThemeMode(bool isDarkMode) {
-    _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
-    _saveThemeMode();
-    notifyListeners();
-  }
-
   // 🟢 Завантаження налаштувань
   void _loadPreferences() {
     _useBloc = prefs.getBool('useBloc') ?? true;
@@ -48,6 +32,22 @@ class Provider4StateShapeSwitching extends ChangeNotifier {
           ? ThemeMode.dark
           : ThemeMode.light;
     }
+  }
+
+  // 🟢 Перемикання між BLoC та Cubit
+  void toggleUseBloc() {
+    _saveThemeMode(); // Зберігаємо поточний стан теми для поточного менеджера
+    _useBloc = !_useBloc;
+    _loadThemeForCurrentManager(); // Завантажуємо тему для нового менеджера
+    _saveUseBloc();
+    notifyListeners();
+  }
+
+  // 🟢 Перемикання теми
+  void toggleThemeMode(bool isDarkMode) {
+    _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    _saveThemeMode();
+    notifyListeners();
   }
 
   // 🟢 Збереження стану useBloc
