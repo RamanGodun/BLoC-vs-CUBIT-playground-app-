@@ -1,8 +1,8 @@
-// import 'package:get_it/get_it.dart';
-// import '../services/app_config_service.dart';
+import 'package:get_it/get_it.dart';
+import '../services/app_config_service.dart';
 
-// final getIt = GetIt.instance;
+final getIt = GetIt.instance;
 
-// void setupServiceLocator() {
-//   getIt.registerLazySingleton<AppConfigService>(() => AppConfigService());
-// }
+void setupServiceLocator() {
+  getIt.registerLazySingleton<AppConfigService>(() => AppConfigService());
+}

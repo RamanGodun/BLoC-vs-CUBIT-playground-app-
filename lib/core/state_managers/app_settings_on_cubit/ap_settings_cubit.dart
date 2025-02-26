@@ -2,12 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-part 'app_state.dart';
+part 'app_settings_state.dart';
 
-class AppStateCubit extends Cubit<AppState> {
+class AppSettingsOnCubit extends Cubit<AppSettingsStateOnCubit> {
   final SharedPreferences _prefs;
 
-  AppStateCubit(this._prefs) : super(AppState.initial()) {
+  AppSettingsOnCubit(this._prefs) : super(AppSettingsStateOnCubit.initial()) {
     _loadState();
   }
 

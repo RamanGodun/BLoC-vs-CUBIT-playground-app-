@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/state_managers/app_state/app_state_cubit.dart';
-import 'core/presentation/widgets/text_widget.dart';
-import 'core/state_managers/counter_state/counter_factory.dart';
-import 'core/state_managers/counter_state/counter_manager.dart';
-import 'core/utils/show_dialog.dart';
-import 'core/presentation/pages/other_page.dart';
-import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
-import 'features/counter/cubits/_counter/counter_cubit.dart';
 
+/* BLoC */
+// import '../../../core/state_managers/app_settings_on_bloc/app_settings_bloc.dart'
+//     as bloc_state;
+import '../blocs/_counter_bloc/counter_bloc.dart';
+
+/* CUBIT */
+// import '../../../core/state_managers/app_settings_on_cubit/ap_settings_cubit.dart'
+//     as cubit_state;
+import '../cubits/_counter/counter_cubit.dart';
+
+import '../../../core/presentation/widgets/text_widget.dart';
+import '../../../core/state_managers/counter_state/counter_factory.dart';
+import '../../../core/state_managers/counter_state/counter_manager.dart';
+import '../../../core/utils/show_dialog.dart';
+import '../../../core/presentation/pages/other_page.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final useBloc =   context.watch<AppStateCubit>().state.isUseBloc;
-    final counterManager = CounterFactory.create(context);
+    const isBlocActive = true; // true якщо BLoC, false якщо Cubit 👈
+
+    final useBloc =
+        CounterFactory.isUseBloc(context, isBlocActive: isBlocActive);
+    final counterManager = CounterFactory.create(context, useBloc: useBloc);
 
     return Scaffold(
       appBar: AppBar(

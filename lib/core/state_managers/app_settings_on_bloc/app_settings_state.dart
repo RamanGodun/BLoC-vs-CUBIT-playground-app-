@@ -1,30 +1,30 @@
-part of 'app_state_cubit.dart';
+part of 'app_settings_bloc.dart';
 
-class AppState extends Equatable {
+class AppSettingsStateOnBloc extends Equatable {
   final bool isUseBloc;
   final bool isDarkThemeForBloc;
   final bool isDarkThemeForCubit;
 
-  const AppState({
+  const AppSettingsStateOnBloc({
     required this.isUseBloc,
     required this.isDarkThemeForBloc,
     required this.isDarkThemeForCubit,
   });
 
-  factory AppState.initial() {
-    return const AppState(
+  factory AppSettingsStateOnBloc.initial() {
+    return const AppSettingsStateOnBloc(
       isUseBloc: true,
       isDarkThemeForBloc: false,
       isDarkThemeForCubit: false,
     );
   }
 
-  AppState copyWith({
+  AppSettingsStateOnBloc copyWith({
     bool? isUseBloc,
     bool? isDarkThemeForBloc,
     bool? isDarkThemeForCubit,
   }) {
-    return AppState(
+    return AppSettingsStateOnBloc(
       isUseBloc: isUseBloc ?? this.isUseBloc,
       isDarkThemeForBloc: isDarkThemeForBloc ?? this.isDarkThemeForBloc,
       isDarkThemeForCubit: isDarkThemeForCubit ?? this.isDarkThemeForCubit,
