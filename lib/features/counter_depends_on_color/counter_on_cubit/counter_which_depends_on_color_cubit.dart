@@ -6,12 +6,6 @@ import '../color_on_cubit/color_cubit.dart';
 
 part 'counter_which_depends_on_color_state.dart';
 
-/*
-------------------------------------------------------------
-Next when DON'T use BLOCK LISTENER in UI
-------------------------------------------------------------
- */
-
 class CounterCubitWhichDependsOnColorCubit
     extends Cubit<CounterCubitStateWhichDependsOnColorCubit> {
   int incrementSize = 1;
@@ -52,18 +46,3 @@ class CounterCubitWhichDependsOnColorCubit
     return super.close();
   }
 }
-
-
-/*
-------------------------------------------------------------
-Next when use BLoC LISTENER in UI
-------------------------------------------------------------
-
-class CounterWithColorCubit extends Cubit<CounterWithColorState> {
-  CounterWithColorCubit() : super(CounterWithColorState.initial());
-
-  void changeCounter(int incrementSize) {
-    emit(state.copyWith(counter: state.counter + incrementSize));
-  }
-}
- */

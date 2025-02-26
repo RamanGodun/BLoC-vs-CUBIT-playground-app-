@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
               onPressed: () =>
                   Helpers.pushTo(context, const CounterDependsOnColorPage()),
               child: const TextWidget(
-                  'to CounterDependsOnColor page', TextType.button),
+                  'Go to CounterDependsOnColor page', TextType.button),
             ),
           ],
         ),
