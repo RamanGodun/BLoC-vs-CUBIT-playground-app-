@@ -1,12 +1,12 @@
 part of 'counter_bloc.dart';
 
-final class CounterWhichDependsOnColorState extends Equatable {
-  const CounterWhichDependsOnColorState({
+final class CounterStateWhichDependsOnColorBloc extends Equatable {
+  const CounterStateWhichDependsOnColorBloc({
     required this.counter,
   });
 
-  factory CounterWhichDependsOnColorState.initial() {
-    return const CounterWhichDependsOnColorState(counter: 0);
+  factory CounterStateWhichDependsOnColorBloc.initial() {
+    return const CounterStateWhichDependsOnColorBloc(counter: 0);
   }
 
   final int counter;
@@ -17,10 +17,10 @@ final class CounterWhichDependsOnColorState extends Equatable {
   @override
   String toString() => 'CounterState(counter: $counter)';
 
-  CounterWhichDependsOnColorState copyWith({
+  CounterStateWhichDependsOnColorBloc copyWith({
     int? counter,
   }) {
-    return CounterWhichDependsOnColorState(
+    return CounterStateWhichDependsOnColorBloc(
       counter: counter ?? this.counter,
     );
   }

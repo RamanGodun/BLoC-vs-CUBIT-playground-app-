@@ -31,16 +31,13 @@ class CounterDependsOnColorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.watch<ColorOnBloc>().state.color, //when use BLoC
-      // backgroundColor: context.watch<ColorCubit>().state.color, //when use CUBIT
+      backgroundColor:
+          context.watch<ColorOnBloc>().state.color, // ! when using BLoC
+      // backgroundColor: context.watch<ColorCubit>().state.color, // ! when using CUBIT
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed:
-//  Next, when use BLoC
-
-                  () => Helpers.pushTo(
-                      context, const ThemePage()), //when use CUBIT
+              onPressed: () => Helpers.pushTo(context, const ThemePage()),
               icon: const Icon(Icons.sunny))
         ],
       ),
@@ -51,33 +48,27 @@ class CounterDependsOnColorPage extends StatelessWidget {
             ElevatedButton(
               onPressed:
                   // next, when use BLoC
-                  () => context.read<ColorOnBloc>().add(ChangeColorEvent()),
-              // () => context.read<ColorCubit>().changeColor(), // this, when use CUBIT
+                  () => context
+                      .read<ColorOnBloc>()
+                      .add(ChangeColorEvent()), // ! when using BLoC
+              // () => context.read<ColorCubit>().changeColor(), // ! when using CUBIT
               child: const TextWidget('Change Color', TextType.button),
             ),
             const SizedBox(height: 20.0),
             TextWidget(
-              /*
-            🟢 Використання `context.watch<CounterBloc>()`
-            - `watch` означає, що цей віджет буде оновлюватися при кожній зміні стану `CounterBloc`.
-            - Кожного разу, коли `CounterState.counter` змінюється, цей віджет перерисовується.
-            - Якщо потрібно слідкувати лише за зміною `counter`, краще використовувати `context.select()`.
-            */
-              '${context.watch<CounterBlocWhichDependsOnColorBLoC>().state.counter}',
-              // '${context.watch<CounterCubitWhichDependsOnColorCubit>().state.counter}',
+              '${context.watch<CounterBlocWhichDependsOnColorBLoC>().state.counter}', // ! when using BLoC
+              // '${context.watch<CounterCubitWhichDependsOnColorCubit>().state.counter}', // ! when using CUBIT
+              // 🟢 Якщо потрібно слідкувати лише за зміною `counter`, краще використовувати `context.select()
               TextType.headline,
             ),
             const SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () =>
-                  // next when use BLoC
-                  context
-                      .read<CounterBlocWhichDependsOnColorBLoC>()
-                      .add(ChangeCounterEvent()),
-              // Next, when use CUBIT
+              onPressed: () => context
+                  .read<CounterBlocWhichDependsOnColorBLoC>()
+                  .add(ChangeCounterEvent()), // ! when using BLoC
               // context
               //                   .read<CounterCubitWhichDependsOnColorCubit>()
-              //                   .changeCounter(),
+              //                   .changeCounter(), // ! when using CUBIT
               child: const TextWidget('Change Counter', TextType.button),
             ),
           ],

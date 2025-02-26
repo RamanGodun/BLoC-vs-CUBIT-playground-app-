@@ -10,14 +10,14 @@ part 'counter_event.dart';
 part 'counter_state.dart';
 
 class CounterBlocWhichDependsOnColorBLoC extends Bloc<
-    CounterWhichDependsOnColorEvent, CounterWhichDependsOnColorState> {
+    CounterEventWhichDependsOnColorBloc, CounterStateWhichDependsOnColorBloc> {
   int incrementSize = 1;
   final ColorOnBloc colorBloc;
   late final StreamSubscription colorSubscription;
 
   CounterBlocWhichDependsOnColorBLoC({
     required this.colorBloc,
-  }) : super(CounterWhichDependsOnColorState.initial()) {
+  }) : super(CounterStateWhichDependsOnColorBloc.initial()) {
     colorSubscription = colorBloc.stream.listen((ColorOnBLoCState colorState) {
       if (colorState.color == Colors.red) {
         incrementSize = 1;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../features/counter_depends_on_color/presentation/counter_depends_on_color_page.dart';
 import '../widgets/text_widget.dart';
 import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC
 // import '../../../core/state_managers/app_state_on_cubit/cubit.dart';  // !when use CUBIT
@@ -43,9 +44,21 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () => Helpers.pushTo(context, const CounterPage()),
-          child: const TextWidget('Go to Counter Page', TextType.button),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: () => Helpers.pushTo(context, const CounterPage()),
+              child: const TextWidget('Go to Counter Page', TextType.button),
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () =>
+                  Helpers.pushTo(context, const CounterDependsOnColorPage()),
+              child: const TextWidget(
+                  'to CounterDependsOnColor page', TextType.button),
+            ),
+          ],
         ),
       ),
     );

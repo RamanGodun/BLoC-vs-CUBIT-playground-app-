@@ -13,14 +13,14 @@ Next when DON'T use BLOCK LISTENER in UI
  */
 
 class CounterCubitWhichDependsOnColorCubit
-    extends Cubit<CounterCubitWhichDependsOnColorCubitState> {
+    extends Cubit<CounterCubitStateWhichDependsOnColorCubit> {
   int incrementSize = 1;
   final ColorCubit colorCubit;
   late final StreamSubscription colorSubscription;
 
   CounterCubitWhichDependsOnColorCubit({
     required this.colorCubit,
-  }) : super(CounterCubitWhichDependsOnColorCubitState.initial()) {
+  }) : super(CounterCubitStateWhichDependsOnColorCubit.initial()) {
     colorSubscription = colorCubit.stream.listen((ColorState colorState) {
       switch (colorState.color) {
         case Colors.red:

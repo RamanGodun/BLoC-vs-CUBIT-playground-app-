@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /* BLoC */
@@ -9,7 +10,6 @@ import '../app_settings_on_cubit/ap_settings_cubit.dart' as cubit_state;
 import '../../../features/counter/counter_on_cubit/counter_cubit.dart';
 
 import 'counter_manager.dart';
-import 'package:flutter/material.dart';
 
 class CounterFactory {
   static CounterManager create(BuildContext context, {required bool useBloc}) {
@@ -24,11 +24,3 @@ class CounterFactory {
         : context.read<cubit_state.AppSettingsOnCubit>().state.isUseBloc;
   }
 }
-// class CounterFactory {
-//   static CounterManager create(BuildContext context) {
-//     final isUseBloc = context.read<AppSettingsOnCubit>().state.isUseBloc;
-//     return isUseBloc
-//         ? BlocCounterManager(context.read<CounterOnBloc>())
-//         : CubitCounterManager(context.read<CounterOnCubit>());
-//   }
-// }
