@@ -1,5 +1,5 @@
-import '../../../features/counter/blocs/_counter_bloc/counter_bloc.dart';
-import '../../../features/counter/cubits/_counter/counter_cubit.dart';
+import '../../../features/counter/counter_on_bloc/counter_bloc.dart';
+import '../../../features/counter/counter_on_cubit/counter_cubit.dart';
 
 abstract class CounterManager {
   int get currentCounter;

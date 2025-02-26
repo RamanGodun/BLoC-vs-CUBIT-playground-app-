@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/presentation/widgets/text_widget.dart';
+import '../widgets/text_widget.dart';
 
-import '../../../core/state_managers/app_settings_on_bloc/app_settings_bloc.dart'; // ! When use BLOC
+import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; // ! When use BLOC
 // import '../../../core/state_managers/app_state_on_cubit/cubit.dart'; // ! When use CUBIT
 
 class ThemePage extends StatelessWidget {

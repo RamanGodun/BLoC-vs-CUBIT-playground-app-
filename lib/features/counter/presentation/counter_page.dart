@@ -4,16 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /* BLoC */
 // import '../../../core/state_managers/app_settings_on_bloc/app_settings_bloc.dart'
 //     as bloc_state;
-import '../blocs/_counter_bloc/counter_bloc.dart';
+import '../counter_on_bloc/counter_bloc.dart';
 
 /* CUBIT */
 // import '../../../core/state_managers/app_settings_on_cubit/ap_settings_cubit.dart'
 //     as cubit_state;
-import '../cubits/_counter/counter_cubit.dart';
+import '../counter_on_cubit/counter_cubit.dart';
 
 import '../../../core/presentation/widgets/text_widget.dart';
-import '../../../core/state_managers/counter_state/counter_factory.dart';
-import '../../../core/state_managers/counter_state/counter_manager.dart';
+import '../../../core/state_managing/counter_state_switching/counter_factory.dart';
+import '../../../core/state_managing/counter_state_switching/counter_manager.dart';
 import '../../../core/utils/show_dialog.dart';
 import '../../../core/presentation/pages/other_page.dart';
 

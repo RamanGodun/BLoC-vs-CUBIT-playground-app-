@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import '../color/color_cubit.dart';
+import '../color_on_cubit/color_cubit.dart';
 
 part 'counter_which_depends_on_color_state.dart';
 

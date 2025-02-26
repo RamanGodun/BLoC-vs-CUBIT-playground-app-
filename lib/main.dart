@@ -1,17 +1,17 @@
-import 'package:bloc_by_korean/features/counter/presentation/home_page.dart';
+import 'package:bloc_by_korean/core/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
-import 'core/state_managers/app_settings_on_bloc/app_settings_bloc.dart'
+import 'core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'
     as bloc_state;
 
 /* CUBITS */
 // import 'core/state_managers/app_settings_on_cubit/ap_settings_cubit.dart' as cubit_state;
 
-import 'features/counter/blocs/_counter_bloc/counter_bloc.dart';
-import 'features/counter/cubits/_counter/counter_cubit.dart';
+import 'features/counter/counter_on_bloc/counter_bloc.dart';
+import 'features/counter/counter_on_cubit/counter_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

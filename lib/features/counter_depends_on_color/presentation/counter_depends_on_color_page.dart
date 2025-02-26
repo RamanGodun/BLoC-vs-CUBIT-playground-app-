@@ -10,13 +10,13 @@ CUBITs
 /*
 BLoCs
  */
-import '../blocs/counter_which_depends_on_color/counter_bloc.dart';
-import '../blocs/color/color_bloc.dart';
+import '../counter_on_bloc/counter_bloc.dart';
+import '../color_on_bloc/color_bloc.dart';
 
 /*
 Presentation
  */
-import 'theme_page.dart';
+import '../../../core/presentation/pages/theme_page.dart';
 import '../../../core/presentation/widgets/text_widget.dart';
 
 /*

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/presentation/widgets/text_widget.dart';
-import '../../../core/state_managers/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC
+import '../widgets/text_widget.dart';
+import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC
 // import '../../../core/state_managers/app_state_on_cubit/cubit.dart';  // !when use CUBIT
-import 'counter_page.dart';
+import '../../../features/counter/presentation/counter_page.dart';
 import 'theme_page.dart';
-import '../../../core/utils/helpers.dart';
+import '../../utils/helpers.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
