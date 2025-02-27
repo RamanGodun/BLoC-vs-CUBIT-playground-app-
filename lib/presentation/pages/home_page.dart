@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../features/counter_depends_on_color/presentation/counter_depends_on_color_page.dart';
 import '../widgets/text_widget.dart';
-// import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC
-import '../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // !when use CUBIT
+import '../../core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC a state-shape handler
+// import '../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // !when use CUBIT a state-shape handler
 import '../../features/counter/presentation/counter_page.dart';
 import 'theme_page.dart';
 import '../../core/utils/helpers.dart';
@@ -13,9 +14,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final state = context.watch<AppSettingsOnBloc>().state; //! When using BLOC
-    final state =
-        context.watch<AppSettingsOnCubit>().state; // ! When using CUBIT
+    final state = context
+        .watch<AppSettingsOnBloc>()
+        .state; //! When using BLOC as a state-shape handler
+    // final state =
+    //     context.watch<AppSettingsOnCubit>().state; // ! When using CUBIT as a state-shape handler
 
     return Scaffold(
       appBar: AppBar(
@@ -38,12 +41,13 @@ class HomePage extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(state.isUseBloc ? Icons.sync : Icons.change_circle),
-            onPressed: () => context
-                .read<AppSettingsOnCubit>()
-                .toggleUseBloc(), // ! When using CUBIT
+// ! When using CUBIT as a state-shape handler
             // onPressed: () => context
-            //     .read<AppSettingsOnBloc>()
-            //     .add(ToggleUseBlocEvent()), //! When using BLOC
+            //     .read<AppSettingsOnCubit>()
+            //     .toggleUseBloc(),
+//! When using BLOC as a state-shape handler
+            onPressed: () =>
+                context.read<AppSettingsOnBloc>().add(ToggleUseBlocEvent()),
           ),
         ],
       ),
