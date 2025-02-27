@@ -1,9 +1,9 @@
-import 'package:bloc_by_korean/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
+import 'core/config/app_routes.dart';
 import 'core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'
     as bloc_state; // ! When using BLOC as a state-shape handler
 
@@ -69,13 +69,12 @@ class AppWrapper extends StatelessWidget {
             : state.isDarkThemeForCubit;
 
         return MaterialApp(
-          title: 'BLoC or Cubit',
-          debugShowCheckedModeBanner: false,
-          theme: isDarkMode
-              ? ThemeData.dark(useMaterial3: true)
-              : ThemeData.light(useMaterial3: true),
-          home: const HomePage(),
-        );
+            title: 'BLoC & Cubit',
+            debugShowCheckedModeBanner: false,
+            theme: isDarkMode
+                ? ThemeData.dark(useMaterial3: true)
+                : ThemeData.light(useMaterial3: true),
+            onGenerateRoute: AppRoutes.onGenerateRoute);
       },
     );
   }

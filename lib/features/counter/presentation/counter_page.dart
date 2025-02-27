@@ -14,7 +14,7 @@ import '../counter_on_cubit/counter_cubit.dart';
 import '../../../presentation/widgets/text_widget.dart';
 import '../_counter_state_switching/counter_factory.dart';
 import '../_counter_state_switching/counter_manager.dart';
-import '../../../core/services/show_dialog.dart';
+import '../../../core/utils/show_dialog.dart';
 import '../../../presentation/pages/other_page.dart';
 
 class CounterPage extends StatelessWidget {

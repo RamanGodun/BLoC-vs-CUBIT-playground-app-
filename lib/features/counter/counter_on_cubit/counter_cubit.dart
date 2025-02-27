@@ -12,6 +12,13 @@ class CounterOnCubit extends Cubit<CounterOnCubitState> {
     emit(newState);
   }
 
+/*
+for loggin may use use CubitObserver.onXhange() or, if no need in logging, use next: 
+  void increment() {
+    emit(state.copyWith(counter: state.counter + 1));
+  }
+ */
+
   void decrement() {
     emit(state.copyWith(counter: state.counter - 1));
   }

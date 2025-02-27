@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../presentation/widgets/text_widget.dart';
 import '../../../core/utils/helpers.dart';
-import '../../../core/services/show_dialog.dart';
+import '../../../core/utils/show_dialog.dart';
 import '../counter_on_bloc/counter_bloc.dart';
 import '../counter_on_cubit/counter_cubit.dart';
 import '../../../presentation/pages/other_page.dart';
