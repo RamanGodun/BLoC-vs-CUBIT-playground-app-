@@ -79,6 +79,8 @@ class CounterDisplayWidget extends StatelessWidget {
     return isUsingBloc
         ? BlocBuilder<CounterBlocWhichDependsOnColorBLoC,
             CounterStateWhichDependsOnColorBloc>(
+            buildWhen: (previous, current) =>
+                previous.counter != current.counter,
             builder: (context, state) {
               print('[UI REBUILD - BLoC] Counter Value: ${state.counter}');
               return TextWidget('${state.counter}', TextType.headline);
@@ -86,6 +88,8 @@ class CounterDisplayWidget extends StatelessWidget {
           )
         : BlocBuilder<CounterCubitWhichDependsOnColorCubit,
             CounterCubitStateWhichDependsOnColorCubit>(
+            buildWhen: (previous, current) =>
+                previous.counter != current.counter,
             builder: (context, state) {
               print('[UI REBUILD - Cubit] Counter Value: ${state.counter}');
               return TextWidget('${state.counter}', TextType.headline);
