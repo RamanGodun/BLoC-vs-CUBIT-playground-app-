@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
+import 'core/observer/app_bloc_observer.dart';
 import 'core/config/app_routes.dart';
 import 'core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'
     as bloc_state; // ! When using BLOC as a state-shape handler
@@ -20,6 +21,7 @@ import 'features/counter_depends_on_color/counter_on_cubit/counter_which_depends
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
+  Bloc.observer = AppBlocObserver();
 
   runApp(
     MultiBlocProvider(
@@ -69,12 +71,13 @@ class AppWrapper extends StatelessWidget {
             : state.isDarkThemeForCubit;
 
         return MaterialApp(
-            title: 'BLoC & Cubit',
-            debugShowCheckedModeBanner: false,
-            theme: isDarkMode
-                ? ThemeData.dark(useMaterial3: true)
-                : ThemeData.light(useMaterial3: true),
-            onGenerateRoute: AppRoutes.onGenerateRoute);
+          title: 'BLoC & Cubit',
+          debugShowCheckedModeBanner: false,
+          theme: isDarkMode
+              ? ThemeData.dark(useMaterial3: true)
+              : ThemeData.light(useMaterial3: true),
+          onGenerateRoute: AppRoutes.onGenerateRoute,
+        );
       },
     );
   }

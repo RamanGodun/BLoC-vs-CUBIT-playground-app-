@@ -27,8 +27,8 @@ class CounterBlocWhichDependsOnColorBLoC extends Bloc<
         incrementSize = 100;
       } else if (colorState.color == Colors.black) {
         incrementSize = -100;
-        add(ChangeCounterEvent());
       }
+      add(ChangeCounterEvent());
     });
 
     on<ChangeCounterEvent>((event, emit) {
