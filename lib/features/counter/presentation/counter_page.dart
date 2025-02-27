@@ -11,11 +11,11 @@ import '../counter_on_bloc/counter_bloc.dart';
 //     as cubit_state;
 import '../counter_on_cubit/counter_cubit.dart';
 
-import '../../../core/presentation/widgets/text_widget.dart';
+import '../../../presentation/widgets/text_widget.dart';
 import '../_counter_state_switching/counter_factory.dart';
 import '../_counter_state_switching/counter_manager.dart';
 import '../../../core/services/show_dialog.dart';
-import '../../../core/presentation/pages/other_page.dart';
+import '../../../presentation/pages/other_page.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});

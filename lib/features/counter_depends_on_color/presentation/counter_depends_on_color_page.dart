@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /* BLoC */
-import '../../../core/presentation/pages/theme_page.dart';
+import '../../../presentation/pages/theme_page.dart';
 
 // import '../../../core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'; // ! When using BLoC
 import '../../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart';
@@ -12,7 +12,7 @@ import '../color_on_bloc/color_bloc.dart';
 /* CUBIT */
 import '../color_on_cubit/color_cubit.dart';
 
-import '../../../core/presentation/widgets/text_widget.dart';
+import '../../../presentation/widgets/text_widget.dart';
 import '../../../core/utils/helpers.dart';
 // import '../counter_on_bloc/counter_bloc.dart'; // ! When using BLoC
 import '../counter_on_bloc/counter_bloc.dart';
@@ -24,15 +24,17 @@ class CounterDependsOnColorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final counterManager = CounterDependsOnColorFactory.create(context);
-    final isUsingBloc = context.select((AppSettingsOnCubit cubit) =>
-        cubit.state.isUseBloc); // ! When using CUBIT
+    // ! When using CUBIT
+    final isUsingBloc =
+        context.select((AppSettingsOnCubit cubit) => cubit.state.isUseBloc);
+    // ! When using BLoC
     // final isUsingBloc = context.select((AppSettingsOnBloc cubit) =>
-    //     cubit.state.isUseBloc); // ! When using BLoC
+    //     cubit.state.isUseBloc);
 
     return Scaffold(
       backgroundColor: isUsingBloc
-          ? context.watch<ColorOnBloc>().state.color // ! When using BLoC
-          : context.watch<ColorOnCubit>().state.color, // ! When using CUBIT
+          ? context.watch<ColorOnBloc>().state.color // When using BLoC
+          : context.watch<ColorOnCubit>().state.color, // When using CUBIT
       appBar: AppBar(
         actions: [
           IconButton(

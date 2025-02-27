@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // ! When use CUBIT
+import '../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // ! When use CUBIT
 // import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; // ! When use BLOC
 import '../widgets/text_widget.dart';
 

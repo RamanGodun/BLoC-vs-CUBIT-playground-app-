@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/presentation/widgets/text_widget.dart';
+import '../../../presentation/widgets/text_widget.dart';
 import '../../../core/utils/helpers.dart';
 import '../../../core/services/show_dialog.dart';
 import '../counter_on_bloc/counter_bloc.dart';
 import '../counter_on_cubit/counter_cubit.dart';
-import '../../../core/presentation/pages/other_page.dart';
-import '../../../core/presentation/pages/theme_page.dart';
+import '../../../presentation/pages/other_page.dart';
+import '../../../presentation/pages/theme_page.dart';
 
 class MyHomePageLikeInCourseWas extends StatelessWidget {
   const MyHomePageLikeInCourseWas({super.key});

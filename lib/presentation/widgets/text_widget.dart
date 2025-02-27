@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../utils/helpers.dart';
+import '../../core/utils/helpers.dart';
 import '../constants.dart';
 
 class TextWidget extends StatelessWidget {

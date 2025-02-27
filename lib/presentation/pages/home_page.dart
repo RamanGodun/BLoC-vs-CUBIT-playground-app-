@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../features/counter_depends_on_color/presentation/counter_depends_on_color_page.dart';
+import '../../features/counter_depends_on_color/presentation/counter_depends_on_color_page.dart';
 import '../widgets/text_widget.dart';
 // import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC
-import '../../state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // !when use CUBIT
-import '../../../features/counter/presentation/counter_page.dart';
+import '../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // !when use CUBIT
+import '../../features/counter/presentation/counter_page.dart';
 import 'theme_page.dart';
-import '../../utils/helpers.dart';
+import '../../core/utils/helpers.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

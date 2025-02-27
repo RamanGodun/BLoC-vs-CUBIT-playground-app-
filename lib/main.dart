@@ -1,4 +1,4 @@
-import 'package:bloc_by_korean/core/presentation/pages/home_page.dart';
+import 'package:bloc_by_korean/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,12 +30,10 @@ void main() async {
                 cubit_state.AppSettingsOnCubit(prefs)), // ! When using CUBIT
         BlocProvider(create: (_) => CounterOnCubit()),
         BlocProvider<ColorOnCubit>(
-            create: (context) => ColorOnCubit()), // ! When using CUBIT
+            create: (context) => ColorOnCubit()), // When using CUBIT
         BlocProvider<CounterCubitWhichDependsOnColorCubit>(
             create: (context) => CounterCubitWhichDependsOnColorCubit(
-                  colorCubit:
-                      context.read<ColorOnCubit>(), // ! When using CUBIT
-                )),
+                colorCubit: context.read<ColorOnCubit>())), // When using CUBIT
 
         /* BLOC */
         // BlocProvider(
@@ -44,12 +42,10 @@ void main() async {
         BlocProvider(create: (_) => CounterOnBloc()),
 
         BlocProvider<ColorOnBloc>(
-            create: (context) => ColorOnBloc()), // ! When using BLOC
+            create: (context) => ColorOnBloc()), // When using BLOC
         BlocProvider<CounterBlocWhichDependsOnColorBLoC>(
-          create: (context) => CounterBlocWhichDependsOnColorBLoC(
-            colorBloc: context.read<ColorOnBloc>(),
-          ),
-        ), // ! When using BLOC
+            create: (context) => CounterBlocWhichDependsOnColorBLoC(
+                colorBloc: context.read<ColorOnBloc>())), // When using BLOC
       ],
       child: const AppWrapper(),
     ),
@@ -61,12 +57,12 @@ class AppWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //   ! When using BLOC
     // return BlocBuilder<bloc_state.AppSettingsOnBloc,
     //     bloc_state.AppSettingsStateOnBloc>(
-    //   // ! When using BLOC
+    // ! When using CUBIT
     return BlocBuilder<cubit_state.AppSettingsOnCubit,
         cubit_state.AppSettingsStateOnCubit>(
-      // ! When using CUBIT
       builder: (context, state) {
         final isDarkMode = state.isUseBloc
             ? state.isDarkThemeForBloc

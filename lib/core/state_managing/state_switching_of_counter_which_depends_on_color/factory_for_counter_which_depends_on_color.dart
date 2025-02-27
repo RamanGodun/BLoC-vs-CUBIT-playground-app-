@@ -15,12 +15,12 @@ import 'counter_depends_on_color_manager.dart';
 class CounterDependsOnColorFactory {
   /// Метод `create` повертає правильний `CounterDependsOnColorManager` на основі BLoC або Cubit
   static CounterDependsOnColorManager create(BuildContext context) {
+    // ! When using BLOC
     // final useBloc =
-    //     context.watch<bloc_state.AppSettingsOnBloc>().state.isUseBloc; // ! When using BLOC
-    final useBloc = context
-        .watch<cubit_state.AppSettingsOnCubit>()
-        .state
-        .isUseBloc; // ! When using CUBIT
+    //     context.watch<bloc_state.AppSettingsOnBloc>().state.isUseBloc;
+    // ! When using CUBIT
+    final useBloc =
+        context.watch<cubit_state.AppSettingsOnCubit>().state.isUseBloc;
 //
     return useBloc
         ? BlocCounterDependsOnColorManager(
