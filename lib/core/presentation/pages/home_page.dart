@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../features/counter_depends_on_color/presentation/counter_depends_on_color_page.dart';
 import '../widgets/text_widget.dart';
-import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC
-// import '../../../core/state_managers/app_state_on_cubit/cubit.dart';  // !when use CUBIT
+// import '../../state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC
+import '../../state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // !when use CUBIT
 import '../../../features/counter/presentation/counter_page.dart';
 import 'theme_page.dart';
 import '../../utils/helpers.dart';
@@ -13,7 +13,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<AppSettingsOnBloc>().state;
+    // final state = context.watch<AppSettingsOnBloc>().state; //! When using BLOC
+    final state =
+        context.watch<AppSettingsOnCubit>().state; // ! When using CUBIT
 
     return Scaffold(
       appBar: AppBar(
@@ -36,10 +38,12 @@ class HomePage extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(state.isUseBloc ? Icons.sync : Icons.change_circle),
-            // onPressed: () => context.read<AppStateOnCubit>().toggleUseBloc(), // ! When using CUBIT
             onPressed: () => context
-                .read<AppSettingsOnBloc>()
-                .add(ToggleUseBlocEvent()), //! When using BLOC
+                .read<AppSettingsOnCubit>()
+                .toggleUseBloc(), // ! When using CUBIT
+            // onPressed: () => context
+            //     .read<AppSettingsOnBloc>()
+            //     .add(ToggleUseBlocEvent()), //! When using BLOC
           ),
         ],
       ),

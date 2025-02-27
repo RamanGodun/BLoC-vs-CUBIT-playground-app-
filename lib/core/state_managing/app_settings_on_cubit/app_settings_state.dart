@@ -1,4 +1,4 @@
-part of 'ap_settings_cubit.dart';
+part of 'app_settings_cubit.dart';
 
 class AppSettingsStateOnCubit extends Equatable {
   final bool isUseBloc;

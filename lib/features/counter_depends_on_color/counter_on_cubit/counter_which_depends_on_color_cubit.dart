@@ -9,12 +9,13 @@ part 'counter_which_depends_on_color_state.dart';
 class CounterCubitWhichDependsOnColorCubit
     extends Cubit<CounterCubitStateWhichDependsOnColorCubit> {
   int incrementSize = 1;
-  final ColorCubit colorCubit;
+  final ColorOnCubit colorCubit;
   late final StreamSubscription colorSubscription;
 
   CounterCubitWhichDependsOnColorCubit({
     required this.colorCubit,
   }) : super(CounterCubitStateWhichDependsOnColorCubit.initial()) {
+    //
     colorSubscription =
         colorCubit.stream.listen((ColorStateOnCubit colorState) {
       switch (colorState.color) {
@@ -28,18 +29,22 @@ class CounterCubitWhichDependsOnColorCubit
           incrementSize = 100;
           break;
         case Colors.black:
-          emit(state.copyWith(counter: state.counter - 100));
           incrementSize = -100;
-          break;
+          emit(state.copyWith(counter: state.counter - 100));
         default:
           incrementSize = 1;
       }
+
+      print(
+          '[Cubit] Color Changed to ${colorState.color}, New Increment Size: $incrementSize');
     });
+    //
   }
 
   void changeCounter() {
     final newCounter = state.counter + incrementSize;
-    print('[Cubit] Counter updated: $newCounter');
+    print(
+        '[Cubit] ChangeCounter called - New Counter: $newCounter, Increment Size: $incrementSize');
     emit(state.copyWith(counter: newCounter));
   }
 

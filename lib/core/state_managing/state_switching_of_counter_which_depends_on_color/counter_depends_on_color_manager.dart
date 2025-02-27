@@ -31,7 +31,7 @@ class BlocCounterDependsOnColorManager implements CounterDependsOnColorManager {
 class CubitCounterDependsOnColorManager
     implements CounterDependsOnColorManager {
   final CounterCubitWhichDependsOnColorCubit _counterCubit;
-  final ColorCubit _colorCubit;
+  final ColorOnCubit _colorCubit;
 
   CubitCounterDependsOnColorManager(this._counterCubit, this._colorCubit);
 

@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
-import 'core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'
-    as bloc_state;
+// import 'core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'
+// as bloc_state;
 
 /* CUBITS */
-// import 'core/state_managers/app_settings_on_cubit/ap_settings_cubit.dart' as cubit_state;
-
+import 'core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'
+    as cubit_state;
 import 'features/counter/counter_on_bloc/counter_bloc.dart';
 import 'features/counter/counter_on_cubit/counter_cubit.dart';
 import 'features/counter_depends_on_color/color_on_bloc/color_bloc.dart';
@@ -24,12 +24,25 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (_) => cubit_state.AppsettingsOnCubit(prefs)), // ! When using CUBIT
+        /* CUBIT */
         BlocProvider(
             create: (_) =>
-                bloc_state.AppSettingsOnBloc(prefs)), // ! When using BLOC
-        BlocProvider(create: (_) => CounterOnBloc()),
+                cubit_state.AppSettingsOnCubit(prefs)), // ! When using CUBIT
         BlocProvider(create: (_) => CounterOnCubit()),
+        BlocProvider<ColorOnCubit>(
+            create: (context) => ColorOnCubit()), // ! When using CUBIT
+        BlocProvider<CounterCubitWhichDependsOnColorCubit>(
+            create: (context) => CounterCubitWhichDependsOnColorCubit(
+                  colorCubit:
+                      context.read<ColorOnCubit>(), // ! When using CUBIT
+                )),
+
+        /* BLOC */
+        // BlocProvider(
+        //     create: (_) =>
+        //         bloc_state.AppSettingsOnBloc(prefs)), // ! When using BLOC
+        BlocProvider(create: (_) => CounterOnBloc()),
+
         BlocProvider<ColorOnBloc>(
             create: (context) => ColorOnBloc()), // ! When using BLOC
         BlocProvider<CounterBlocWhichDependsOnColorBLoC>(
@@ -37,13 +50,6 @@ void main() async {
             colorBloc: context.read<ColorOnBloc>(),
           ),
         ), // ! When using BLOC
-
-        BlocProvider<ColorCubit>(
-            create: (context) => ColorCubit()), // ! When using CUBIT
-        BlocProvider<CounterCubitWhichDependsOnColorCubit>(
-            create: (context) => CounterCubitWhichDependsOnColorCubit(
-                  colorCubit: context.read<ColorCubit>(), // ! When using CUBIT
-                )),
       ],
       child: const AppWrapper(),
     ),
@@ -55,10 +61,12 @@ class AppWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<bloc_state.AppSettingsOnBloc,
-        bloc_state.AppSettingsStateOnBloc>(
-      // BlocBuilder<cubit_state.AppSettingsOnCubit,
-      //  cubit_state.AppSettingsStateOnCubit>( // ! When using CUBIT
+    // return BlocBuilder<bloc_state.AppSettingsOnBloc,
+    //     bloc_state.AppSettingsStateOnBloc>(
+    //   // ! When using BLOC
+    return BlocBuilder<cubit_state.AppSettingsOnCubit,
+        cubit_state.AppSettingsStateOnCubit>(
+      // ! When using CUBIT
       builder: (context, state) {
         final isDarkMode = state.isUseBloc
             ? state.isDarkThemeForBloc
