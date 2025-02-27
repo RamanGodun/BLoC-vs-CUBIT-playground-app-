@@ -1,12 +1,12 @@
 part of 'color_bloc.dart';
 
-final class ColorOnBLoCState extends Equatable {
-  const ColorOnBLoCState({
+final class ColorStateOnBLoC extends Equatable {
+  const ColorStateOnBLoC({
     required this.color,
   });
 
-  factory ColorOnBLoCState.initial() {
-    return const ColorOnBLoCState(color: Colors.red);
+  factory ColorStateOnBLoC.initial() {
+    return const ColorStateOnBLoC(color: Colors.red);
   }
 
   final Color color;
@@ -17,10 +17,10 @@ final class ColorOnBLoCState extends Equatable {
   @override
   String toString() => 'ColorState(color: $color)';
 
-  ColorOnBLoCState copyWith({
+  ColorStateOnBLoC copyWith({
     Color? color,
   }) {
-    return ColorOnBLoCState(
+    return ColorStateOnBLoC(
       color: color ?? this.color,
     );
   }

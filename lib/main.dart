@@ -12,6 +12,10 @@ import 'core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'
 
 import 'features/counter/counter_on_bloc/counter_bloc.dart';
 import 'features/counter/counter_on_cubit/counter_cubit.dart';
+import 'features/counter_depends_on_color/color_on_bloc/color_bloc.dart';
+import 'features/counter_depends_on_color/color_on_cubit/color_cubit.dart';
+import 'features/counter_depends_on_color/counter_on_bloc/counter_bloc.dart';
+import 'features/counter_depends_on_color/counter_on_cubit/counter_which_depends_on_color_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +30,20 @@ void main() async {
                 bloc_state.AppSettingsOnBloc(prefs)), // ! When using BLOC
         BlocProvider(create: (_) => CounterOnBloc()),
         BlocProvider(create: (_) => CounterOnCubit()),
+        BlocProvider<ColorOnBloc>(
+            create: (context) => ColorOnBloc()), // ! When using BLOC
+        BlocProvider<CounterBlocWhichDependsOnColorBLoC>(
+          create: (context) => CounterBlocWhichDependsOnColorBLoC(
+            colorBloc: context.read<ColorOnBloc>(),
+          ),
+        ), // ! When using BLOC
+
+        BlocProvider<ColorCubit>(
+            create: (context) => ColorCubit()), // ! When using CUBIT
+        BlocProvider<CounterCubitWhichDependsOnColorCubit>(
+            create: (context) => CounterCubitWhichDependsOnColorCubit(
+                  colorCubit: context.read<ColorCubit>(), // ! When using CUBIT
+                )),
       ],
       child: const AppWrapper(),
     ),
@@ -58,21 +76,3 @@ class AppWrapper extends StatelessWidget {
     );
   }
 }
-
-/*
-
-  BlocProvider<ColorOnBloc>(create: (context) => ColorOnBloc()),
-        BlocProvider<CounterBlocWhichDependsOnColorBLoC>(
-          create: (context) => CounterBlocWhichDependsOnColorBLoC(
-            colorBloc: context.read<ColorOnBloc>(),
-          ),
-        ),
-
- BlocProvider<ColorCubit>(create: (context) => ColorCubit()),
-        BlocProvider<CounterCubitWhichDependsOnColorCubit>(
-            create: (context) => CounterCubitWhichDependsOnColorCubit(
-                  colorCubit: context.read<
-                      ColorCubit>(), // need only when don't use BlocListener in UI
-                )),
-
- */

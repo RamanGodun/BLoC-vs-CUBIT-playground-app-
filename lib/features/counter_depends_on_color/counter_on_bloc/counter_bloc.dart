@@ -18,7 +18,7 @@ class CounterBlocWhichDependsOnColorBLoC extends Bloc<
   CounterBlocWhichDependsOnColorBLoC({
     required this.colorBloc,
   }) : super(CounterStateWhichDependsOnColorBloc.initial()) {
-    colorSubscription = colorBloc.stream.listen((ColorOnBLoCState colorState) {
+    colorSubscription = colorBloc.stream.listen((ColorStateOnBLoC colorState) {
       if (colorState.color == Colors.red) {
         incrementSize = 1;
       } else if (colorState.color == Colors.green) {

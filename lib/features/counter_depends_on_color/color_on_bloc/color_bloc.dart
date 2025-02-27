@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 part 'color_event.dart';
 part 'color_state.dart';
 
-class ColorOnBloc extends Bloc<ColorOnBLoCEvent, ColorOnBLoCState> {
-  ColorOnBloc() : super(ColorOnBLoCState.initial()) {
+class ColorOnBloc extends Bloc<ColorEvents, ColorStateOnBLoC> {
+  ColorOnBloc() : super(ColorStateOnBLoC.initial()) {
     on<ChangeColorEvent>(_changeColor);
   }
 
-  void _changeColor(ChangeColorEvent event, Emitter<ColorOnBLoCState> emit) {
+  void _changeColor(ChangeColorEvent event, Emitter<ColorStateOnBLoC> emit) {
     if (state.color == Colors.red) {
       emit(state.copyWith(color: Colors.green));
     } else if (state.color == Colors.green) {

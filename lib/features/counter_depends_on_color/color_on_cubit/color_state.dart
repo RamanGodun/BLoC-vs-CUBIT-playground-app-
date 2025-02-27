@@ -1,12 +1,12 @@
 part of 'color_cubit.dart';
 
-final class ColorState extends Equatable {
-  const ColorState({
+final class ColorStateOnCubit extends Equatable {
+  const ColorStateOnCubit({
     required this.color,
   });
 
-  factory ColorState.initial() {
-    return const ColorState(color: Colors.red);
+  factory ColorStateOnCubit.initial() {
+    return const ColorStateOnCubit(color: Colors.red);
   }
 
   final Color color;
@@ -17,10 +17,10 @@ final class ColorState extends Equatable {
   @override
   String toString() => 'ColorState(color: $color)';
 
-  ColorState copyWith({
+  ColorStateOnCubit copyWith({
     Color? color,
   }) {
-    return ColorState(
+    return ColorStateOnCubit(
       color: color ?? this.color,
     );
   }

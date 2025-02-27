@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 part 'color_state.dart';
 
-class ColorCubit extends Cubit<ColorState> {
-  ColorCubit() : super(ColorState.initial());
+class ColorCubit extends Cubit<ColorStateOnCubit> {
+  ColorCubit() : super(ColorStateOnCubit.initial());
 
   void changeColor() {
     if (state.color == Colors.red) {

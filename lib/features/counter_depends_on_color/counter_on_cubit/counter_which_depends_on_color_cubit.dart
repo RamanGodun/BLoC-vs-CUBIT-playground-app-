@@ -15,7 +15,8 @@ class CounterCubitWhichDependsOnColorCubit
   CounterCubitWhichDependsOnColorCubit({
     required this.colorCubit,
   }) : super(CounterCubitStateWhichDependsOnColorCubit.initial()) {
-    colorSubscription = colorCubit.stream.listen((ColorState colorState) {
+    colorSubscription =
+        colorCubit.stream.listen((ColorStateOnCubit colorState) {
       switch (colorState.color) {
         case Colors.red:
           incrementSize = 1;
@@ -37,7 +38,9 @@ class CounterCubitWhichDependsOnColorCubit
   }
 
   void changeCounter() {
-    emit(state.copyWith(counter: state.counter + incrementSize));
+    final newCounter = state.counter + incrementSize;
+    print('[Cubit] Counter updated: $newCounter');
+    emit(state.copyWith(counter: newCounter));
   }
 
   @override
