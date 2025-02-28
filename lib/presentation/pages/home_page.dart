@@ -70,6 +70,13 @@ class HomePage extends StatelessWidget {
                   Helpers.pushNamed(context, RouteNames.blocAccess),
               child: const TextWidget('Show Me Counter', TextType.button),
             ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () => Helpers.pushNamed(
+                  context, RouteNames.counterEventTransformerDemo),
+              child:
+                  const TextWidget('Event Transformers Demo', TextType.button),
+            ),
           ],
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:bloc_by_korean/features/counter_depends_on_color/presentation/co
 import 'package:bloc_by_korean/presentation/pages/theme_page.dart';
 import 'package:bloc_by_korean/features/counter/counter_on_cubit/counter_cubit.dart';
 
+import '../../features/events_transformer/counter_page.dart';
 import '../../presentation/pages/other_page.dart';
 import 'route_names.dart';
 
@@ -25,7 +26,6 @@ class AppRoutes {
       case RouteNames.blocAccessCounter:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
-            // Прокидаємо той самий інстанс, що в BlocAccessPage
             value: BlocProvider.of<CounterOnCubit>(context),
             child: const ShowMeCounter(),
           ),
@@ -40,6 +40,11 @@ class AppRoutes {
       case RouteNames.counterDependsOnColor:
         return MaterialPageRoute(
           builder: (context) => const CounterDependsOnColorPage(),
+        );
+
+      case RouteNames.counterEventTransformerDemo:
+        return MaterialPageRoute(
+          builder: (context) => const CounterWithEventTransformerHandling(),
         );
 
       case RouteNames.otherPage:
