@@ -9,7 +9,7 @@ import 'package:bloc_by_korean/presentation/pages/theme_page.dart';
 import 'package:bloc_by_korean/features/counter/counter_on_cubit/counter_cubit.dart';
 
 import '../../features/events_transformer/counter_page.dart';
-import '../../features/hydrated_bloc/counter_h_page.dart';
+import '../../features/counter_on_hydrated_bloc/counter_h_page.dart';
 import '../../presentation/pages/other_page.dart';
 import 'route_names.dart';
 

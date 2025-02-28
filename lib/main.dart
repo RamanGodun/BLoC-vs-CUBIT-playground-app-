@@ -22,7 +22,7 @@ import 'features/counter_depends_on_color/color_on_cubit/color_cubit.dart';
 import 'features/counter_depends_on_color/counter_on_bloc/counter_bloc.dart';
 import 'features/counter_depends_on_color/counter_on_cubit/counter_which_depends_on_color_cubit.dart';
 import 'features/events_transformer/bloc/counter_bloc.dart';
-import 'features/hydrated_bloc/counter/counter_bloc.dart';
+import 'features/counter_on_hydrated_bloc/counter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,11 +44,10 @@ void main() async {
         //     create: (_) =>
         //         cubit_state.AppSettingsOnCubit(prefs)), // ! When using CUBIT as a state-shape handler
         BlocProvider(create: (_) => CounterOnCubit()),
-        BlocProvider<ColorOnCubit>(
-            create: (context) => ColorOnCubit()), // When using CUBIT
+        BlocProvider<ColorOnCubit>(create: (context) => ColorOnCubit()),
         BlocProvider<CounterCubitWhichDependsOnColorCubit>(
             create: (context) => CounterCubitWhichDependsOnColorCubit(
-                colorCubit: context.read<ColorOnCubit>())), // When using CUBIT
+                colorCubit: context.read<ColorOnCubit>())),
 
         /* BLOC */
         BlocProvider(
@@ -56,11 +55,10 @@ void main() async {
                 prefs)), // ! When using BLOC as a state-shape handler
         BlocProvider(create: (_) => CounterOnBloc()),
 
-        BlocProvider<ColorOnBloc>(
-            create: (context) => ColorOnBloc()), // When using BLOC
+        BlocProvider<ColorOnBloc>(create: (context) => ColorOnBloc()),
         BlocProvider<CounterBlocWhichDependsOnColorBLoC>(
             create: (context) => CounterBlocWhichDependsOnColorBLoC(
-                colorBloc: context.read<ColorOnBloc>())), // When using BLOC
+                colorBloc: context.read<ColorOnBloc>())),
         BlocProvider(create: (_) => CounterBlocWithTransformers()),
         BlocProvider(create: (_) => HydratedCounterBloc()),
         BlocProvider(create: (_) => HydratedThemeBloc()),
