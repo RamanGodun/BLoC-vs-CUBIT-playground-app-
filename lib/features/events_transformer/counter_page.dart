@@ -13,8 +13,9 @@ class CounterWithEventTransformerHandling extends StatelessWidget {
       appBar: AppBar(title: const Text("Event Transformers Demo")),
       body: Center(
         child: TextWidget(
-            '${context.watch<CounterBlocWithTransformers>().state.counter}',
-            TextType.titleSmall),
+          '${context.watch<CounterBlocWithTransformers>().state.counter}',
+          TextType.headline,
+        ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,

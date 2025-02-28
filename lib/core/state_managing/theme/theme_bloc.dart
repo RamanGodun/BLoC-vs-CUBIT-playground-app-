@@ -4,8 +4,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 part 'theme_event.dart';
 part 'theme_state.dart';
 
-class ThemeBloc extends Bloc<ThemeEvent, ThemeState> with HydratedMixin {
-  ThemeBloc() : super(ThemeState.initial()) {
+class HydratedThemeBloc extends Bloc<ThemeEvent, ThemeState>
+    with HydratedMixin {
+  HydratedThemeBloc() : super(ThemeState.initial()) {
     hydrate();
 
     on<ToggleThemeEvent>((event, emit) {

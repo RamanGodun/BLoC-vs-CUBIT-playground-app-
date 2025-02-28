@@ -9,6 +9,7 @@ import 'package:bloc_by_korean/presentation/pages/theme_page.dart';
 import 'package:bloc_by_korean/features/counter/counter_on_cubit/counter_cubit.dart';
 
 import '../../features/events_transformer/counter_page.dart';
+import '../../features/hydrated_bloc/counter_h_page.dart';
 import '../../presentation/pages/other_page.dart';
 import 'route_names.dart';
 
@@ -45,6 +46,11 @@ class AppRoutes {
       case RouteNames.counterEventTransformerDemo:
         return MaterialPageRoute(
           builder: (context) => const CounterWithEventTransformerHandling(),
+        );
+
+      case RouteNames.counterHydrated:
+        return MaterialPageRoute(
+          builder: (context) => const CounterOnHydratedBlocPage(),
         );
 
       case RouteNames.otherPage:

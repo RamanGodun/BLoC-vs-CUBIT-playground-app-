@@ -77,6 +77,12 @@ class HomePage extends StatelessWidget {
               child:
                   const TextWidget('Event Transformers Demo', TextType.button),
             ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () =>
+                  Helpers.pushNamed(context, RouteNames.counterHydrated),
+              child: const TextWidget('Hydrated BLoC Counter', TextType.button),
+            ),
           ],
         ),
       ),

@@ -4,8 +4,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 part 'counter_event.dart';
 part 'counter_state.dart';
 
-class CounterBloc extends Bloc<CounterEvent, CounterState> with HydratedMixin {
-  CounterBloc() : super(CounterState.initial()) {
+class HydratedCounterBloc extends Bloc<CounterEvent, CounterState>
+    with HydratedMixin {
+  HydratedCounterBloc() : super(CounterState.initial()) {
     hydrate();
 
     on<IncrementCounterEvent>((event, emit) {

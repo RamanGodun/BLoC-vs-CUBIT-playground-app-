@@ -7,5 +7,6 @@ class RouteNames {
   static const String counterDependsOnColor = '/counterDependsOnColorPage';
   static const String counterEventTransformerDemo =
       '/counterWithEventTransformerHandling';
+  static const String counterHydrated = '/counterOnHydratedBlocPage';
   static const String otherPage = '/counterPage/otherPage';
 }

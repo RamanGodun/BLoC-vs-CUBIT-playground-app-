@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
@@ -11,6 +14,7 @@ import 'core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'
 /* CUBITS */
 // import 'core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'
 //     as cubit_state; // ! When using CUBIT as a state-shape handler
+import 'core/state_managing/theme/theme_bloc.dart';
 import 'features/counter/counter_on_bloc/counter_bloc.dart';
 import 'features/counter/counter_on_cubit/counter_cubit.dart';
 import 'features/counter_depends_on_color/color_on_bloc/color_bloc.dart';
@@ -18,11 +22,19 @@ import 'features/counter_depends_on_color/color_on_cubit/color_cubit.dart';
 import 'features/counter_depends_on_color/counter_on_bloc/counter_bloc.dart';
 import 'features/counter_depends_on_color/counter_on_cubit/counter_which_depends_on_color_cubit.dart';
 import 'features/events_transformer/bloc/counter_bloc.dart';
+import 'features/hydrated_bloc/counter/counter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   Bloc.observer = AppBlocObserver();
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb
+        ? HydratedStorageDirectory.web
+        : HydratedStorageDirectory((await getTemporaryDirectory())
+            .path), // or better getApplicationDocumentsDirectory(), which not be deleted eventually
+  );
 
   runApp(
     MultiBlocProvider(
@@ -50,6 +62,8 @@ void main() async {
             create: (context) => CounterBlocWhichDependsOnColorBLoC(
                 colorBloc: context.read<ColorOnBloc>())), // When using BLOC
         BlocProvider(create: (_) => CounterBlocWithTransformers()),
+        BlocProvider(create: (_) => HydratedCounterBloc()),
+        BlocProvider(create: (_) => HydratedThemeBloc()),
       ],
       child: const AppWrapper(),
     ),
