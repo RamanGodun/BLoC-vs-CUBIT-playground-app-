@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /* BLoCs */
 import 'core/config/app_bloc_observer.dart';
@@ -26,9 +25,7 @@ import 'features/counter_on_hydrated_bloc/counter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
   Bloc.observer = AppBlocObserver();
-
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorageDirectory.web
@@ -51,8 +48,8 @@ void main() async {
 
         /* BLOC */
         BlocProvider(
-            create: (_) => bloc_state.AppSettingsOnBloc(
-                prefs)), // ! When using BLOC as a state-shape handler
+            create: (_) => bloc_state
+                .AppSettingsOnBloc()), // ! When using BLOC as a state-shape handler
         BlocProvider(create: (_) => CounterOnBloc()),
 
         BlocProvider<ColorOnBloc>(create: (context) => ColorOnBloc()),

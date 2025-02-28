@@ -6,7 +6,7 @@ import '../../../presentation/pages/theme_page.dart';
 
 import '../../../core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'; // ! When using BLoC as a state-shape handler
 // import '../../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // ! When using CUBIT as a state-shape handler
-import '../_state_switching_of_counter_which_depends_on_color/factory_for_counter_which_depends_on_color.dart';
+import '../../../core/state_managing/_state_switching_of_counter_which_depends_on_color/factory_for_counter_which_depends_on_color.dart';
 import '../color_on_bloc/color_bloc.dart';
 
 /* CUBIT */

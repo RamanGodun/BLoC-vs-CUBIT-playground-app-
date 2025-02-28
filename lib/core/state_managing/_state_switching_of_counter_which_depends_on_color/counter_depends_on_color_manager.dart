@@ -1,7 +1,7 @@
-import '../counter_on_bloc/counter_bloc.dart';
-import '../color_on_bloc/color_bloc.dart';
-import '../color_on_cubit/color_cubit.dart';
-import '../counter_on_cubit/counter_which_depends_on_color_cubit.dart';
+import '../../../features/counter_depends_on_color/counter_on_bloc/counter_bloc.dart';
+import '../../../features/counter_depends_on_color/color_on_bloc/color_bloc.dart';
+import '../../../features/counter_depends_on_color/color_on_cubit/color_cubit.dart';
+import '../../../features/counter_depends_on_color/counter_on_cubit/counter_which_depends_on_color_cubit.dart';
 
 abstract class CounterDependsOnColorManager {
   int get currentCounter;
