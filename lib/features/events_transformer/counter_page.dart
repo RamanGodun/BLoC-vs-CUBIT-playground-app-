@@ -1,4 +1,4 @@
-import 'package:bloc_by_korean/presentation/widgets/text_widget.dart';
+import 'package:bloc_by_korean/presentation/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

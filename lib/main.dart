@@ -24,7 +24,10 @@ import 'features/counter_depends_on_color/counter_on_cubit/counter_which_depends
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // 🌐 Initialize BLoC Observer for state management monitoring
   Bloc.observer = AppBlocObserver();
+
+  // 💾 Initialize Hydrated BLoC storage for persisting state
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorageDirectory.web
@@ -34,6 +37,7 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        // 🟦 BLoC Providers
         BlocProvider(create: (_) => AppSettingsOnBloc()),
         BlocProvider(create: (_) => CounterOnBloc()),
         BlocProvider(create: (_) => ColorOnBloc()),
@@ -45,7 +49,7 @@ void main() async {
         BlocProvider(create: (_) => CounterBlocWithTransformers()),
         BlocProvider(create: (_) => HydratedCounterBloc()),
 
-        // Always include CUBIT providers as well
+        // 🟧 Cubit Providers
         BlocProvider(create: (_) => AppSettingsOnCubit()),
         BlocProvider(create: (_) => CounterOnCubit()),
         BlocProvider(create: (_) => ColorOnCubit()),
@@ -55,40 +59,14 @@ void main() async {
           ),
         ),
       ],
-
-/*
- providers: AppConfig.isUsingBlocStateShape
-          ? [
-              /* BLoC */
-              BlocProvider(create: (_) => AppSettingsOnBloc()),
-              BlocProvider(create: (_) => CounterOnBloc()),
-              BlocProvider(create: (_) => CounterOnCubit()),
-              BlocProvider(create: (_) => ColorOnBloc()),
-              BlocProvider(
-                create: (context) => CounterBlocWhichDependsOnColorBLoC(
-                  colorBloc: context.read<ColorOnBloc>(),
-                ),
-              ),
-              BlocProvider(create: (_) => CounterBlocWithTransformers()),
-              BlocProvider(create: (_) => HydratedCounterBloc()),
-            ]
-          : [
-              /* CUBIT */
-              BlocProvider(create: (_) => AppSettingsOnCubit()),
-              BlocProvider(create: (_) => CounterOnCubit()),
-              BlocProvider(create: (_) => ColorOnCubit()),
-              BlocProvider(
-                create: (context) => CounterCubitWhichDependsOnColorCubit(
-                  colorCubit: context.read<ColorOnCubit>(),
-                ),
-              ),
-            ],
- */
       child: const AppWrapper(),
     ),
   );
 }
 
+/// 🏠 [AppWrapper] is the root widget of the application.
+/// It dynamically selects between BLoC [AppSettingsOnBloc] and Cubit [AppSettingsOnCubit]
+/// based on the [AppConfig] configuration.
 class AppWrapper extends StatelessWidget {
   const AppWrapper({super.key});
 
@@ -97,35 +75,35 @@ class AppWrapper extends StatelessWidget {
     return AppConfig.isUsingBlocStateShape
         ? BlocBuilder<AppSettingsOnBloc, AppSettingsStateOnBloc>(
             builder: (context, state) {
+              // 🎨 Determine the theme mode based on BLoC state
               final isDarkMode = state.isUseBloc
                   ? state.isDarkThemeForBloc
                   : state.isDarkThemeForCubit;
 
-              return MaterialApp(
-                title: 'BLoC & Cubit',
-                debugShowCheckedModeBanner: false,
-                theme: isDarkMode
-                    ? ThemeData.dark(useMaterial3: true)
-                    : ThemeData.light(useMaterial3: true),
-                onGenerateRoute: AppRoutes.onGenerateRoute,
-              );
+              return _buildMaterialApp(isDarkMode);
             },
           )
         : BlocBuilder<AppSettingsOnCubit, AppSettingsStateOnCubit>(
             builder: (context, state) {
+              // 🎨 Determine the theme mode based on Cubit state
               final isDarkMode = state.isUseBloc
                   ? state.isDarkThemeForBloc
                   : state.isDarkThemeForCubit;
 
-              return MaterialApp(
-                title: 'BLoC & Cubit',
-                debugShowCheckedModeBanner: false,
-                theme: isDarkMode
-                    ? ThemeData.dark(useMaterial3: true)
-                    : ThemeData.light(useMaterial3: true),
-                onGenerateRoute: AppRoutes.onGenerateRoute,
-              );
+              return _buildMaterialApp(isDarkMode);
             },
           );
+  }
+
+  /// 🌈 Builds the [MaterialApp] with dynamic theming
+  MaterialApp _buildMaterialApp(bool isDarkMode) {
+    return MaterialApp(
+      title: 'BLoC & Cubit',
+      debugShowCheckedModeBanner: false,
+      theme: isDarkMode
+          ? ThemeData.dark(useMaterial3: true)
+          : ThemeData.light(useMaterial3: true),
+      onGenerateRoute: AppRoutes.onGenerateRoute,
+    );
   }
 }

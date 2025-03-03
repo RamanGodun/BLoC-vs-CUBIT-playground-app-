@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/config/route_names.dart';
-import '../widgets/text_widget.dart';
-import '../../core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'; //! When use BLOC a state-shape handler
-import '../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // !when use CUBIT a state-shape handler
+import '../text_widget.dart';
+import '../../core/state_managing/app_settings_on_bloc/app_settings_bloc.dart';
+import '../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart';
 import '../../core/utils/helpers.dart';
 
+/// 🏠 [HomePage] is the main entry point for navigating through the app features.
+/// It dynamically switches between BLoC and Cubit state management based on [AppConfig].
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'Using ${AppConfig.isUsingBlocStateShape ? 'BLoC' : 'Cubit'} for theme toggle');
+    // 🔍 Determine if the app uses BLoC or Cubit for state management
     final state = AppConfig.isUsingBlocStateShape
         ? context.watch<AppSettingsOnBloc>().state
         : context.watch<AppSettingsOnCubit>().state;
@@ -23,6 +24,8 @@ class HomePage extends StatelessWidget {
     final isDarkMode = isUseBloc
         ? (state as dynamic).isDarkThemeForBloc
         : (state as dynamic).isDarkThemeForCubit;
+
+    print('🔄 Using ${isUseBloc ? 'BLoC' : 'Cubit'} for theme toggle');
 
     return Scaffold(
       appBar: AppBar(
@@ -33,12 +36,12 @@ class HomePage extends StatelessWidget {
           ),
         ),
         actions: [
+          // 🌗 Theme toggle button
           IconButton(
-            icon: Icon(isUseBloc
-                ? (isDarkMode ? Icons.dark_mode : Icons.light_mode)
-                : (isDarkMode ? Icons.dark_mode : Icons.light_mode)),
+            icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
             onPressed: () => Helpers.pushNamed(context, RouteNames.themePage),
           ),
+          // 🔄 Switch between BLoC and Cubit
           IconButton(
             icon: Icon(isUseBloc ? Icons.sync : Icons.change_circle),
             onPressed: () => AppConfig.isUsingBlocStateShape
@@ -51,38 +54,46 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ElevatedButton(
-              onPressed: () =>
-                  Helpers.pushNamed(context, RouteNames.counterPage),
-              child: const TextWidget('Go to Counter Page', TextType.button),
+            // 🚀 Navigation Buttons
+            _buildNavigationButton(
+              context,
+              label: 'Go to Counter Page',
+              routeName: RouteNames.counterPage,
             ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-                onPressed: () => Helpers.pushNamed(
-                    context, RouteNames.counterDependsOnColor),
-                child: const TextWidget(
-                    'Go to CounterDependsOnColor page', TextType.button)),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () =>
-                  Helpers.pushNamed(context, RouteNames.blocAccess),
-              child: const TextWidget('Show Me Counter', TextType.button),
+            _buildNavigationButton(
+              context,
+              label: 'Go to CounterDependsOnColor page',
+              routeName: RouteNames.counterDependsOnColor,
             ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () => Helpers.pushNamed(
-                  context, RouteNames.counterEventTransformerDemo),
-              child:
-                  const TextWidget('Event Transformers Demo', TextType.button),
+            _buildNavigationButton(
+              context,
+              label: 'Show Me Counter',
+              routeName: RouteNames.blocAccess,
             ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () =>
-                  Helpers.pushNamed(context, RouteNames.counterHydrated),
-              child: const TextWidget('Hydrated BLoC Counter', TextType.button),
+            _buildNavigationButton(
+              context,
+              label: 'Event Transformers Demo',
+              routeName: RouteNames.counterEventTransformerDemo,
+            ),
+            _buildNavigationButton(
+              context,
+              label: 'Hydrated BLoC Counter',
+              routeName: RouteNames.counterHydrated,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// 🧭 Helper method to build navigation buttons
+  Widget _buildNavigationButton(BuildContext context,
+      {required String label, required String routeName}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      child: ElevatedButton(
+        onPressed: () => Helpers.pushNamed(context, routeName),
+        child: TextWidget(label, TextType.button),
       ),
     );
   }

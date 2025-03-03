@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../presentation/widgets/text_widget.dart';
+import '../../../presentation/text_widget.dart';
 import '../../../core/utils/helpers.dart';
 import '../../../core/utils/show_dialog.dart';
 import '../counter_on_bloc/counter_bloc.dart';

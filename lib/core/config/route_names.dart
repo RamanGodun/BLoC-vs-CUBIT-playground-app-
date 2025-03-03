@@ -1,3 +1,7 @@
+/// Centralized route name definitions for the application.
+///
+/// Using a static class for route names helps avoid typos and maintain
+/// consistent navigation throughout the app [AppRoutes].
 class RouteNames {
   static const String home = '/';
   static const String blocAccess = '/blocAccessPage';

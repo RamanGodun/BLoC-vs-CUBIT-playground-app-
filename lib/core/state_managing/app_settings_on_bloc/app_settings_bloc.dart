@@ -4,34 +4,35 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 part 'app_settings_event.dart';
 part 'app_settings_state.dart';
 
+/// `AppSettingsOnBloc` handles application settings using the BLoC pattern.
+///
+/// This BLoC is `Hydrated`, meaning it persists its state locally and restores it on app relaunch.
 class AppSettingsOnBloc
     extends HydratedBloc<AppSettingsEvents, AppSettingsStateOnBloc> {
+  /// Initializes the BLoC with the initial state and sets up event handlers.
   AppSettingsOnBloc() : super(AppSettingsStateOnBloc.initial()) {
+    /// Toggles between BLoC and Cubit state management modes.
     on<ToggleUseBlocEvent>((event, emit) {
-      final newUseBloc = !state.isUseBloc;
-      emit(state.copyWith(isUseBloc: newUseBloc));
+      emit(state.copyWith(isUseBloc: !state.isUseBloc));
     });
 
+    /// Toggles the theme between light and dark modes based on the active state management.
     on<ToggleThemeEvent>((event, emit) {
-      if (state.isUseBloc) {
-        emit(state.copyWith(isDarkThemeForBloc: event.isDarkMode));
-      } else {
-        emit(state.copyWith(isDarkThemeForCubit: event.isDarkMode));
-      }
+      emit(state.isUseBloc
+          ? state.copyWith(isDarkThemeForBloc: event.isDarkMode)
+          : state.copyWith(isDarkThemeForCubit: event.isDarkMode));
     });
   }
 
-  /// Метод для збереження стану у локальне сховище
+  /// Persists the current state into a JSON object.
   @override
-  Map<String, dynamic>? toJson(AppSettingsStateOnBloc state) {
-    return {
-      'isUseBloc': state.isUseBloc,
-      'isDarkThemeForBloc': state.isDarkThemeForBloc,
-      'isDarkThemeForCubit': state.isDarkThemeForCubit,
-    };
-  }
+  Map<String, dynamic>? toJson(AppSettingsStateOnBloc state) => {
+        'isUseBloc': state.isUseBloc,
+        'isDarkThemeForBloc': state.isDarkThemeForBloc,
+        'isDarkThemeForCubit': state.isDarkThemeForCubit,
+      };
 
-  /// Метод для відновлення стану при старті програми
+  /// Restores the state from a JSON object on app startup.
   @override
   AppSettingsStateOnBloc? fromJson(Map<String, dynamic> json) {
     return AppSettingsStateOnBloc(

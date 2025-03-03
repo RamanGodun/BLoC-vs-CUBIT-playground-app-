@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/utils/helpers.dart';
-import '../constants.dart';
+import '../core/utils/helpers.dart';
+import 'ui_constants.dart';
 
+/// 📄 [TextWidget] is a customizable widget for displaying styled text with pre-defined text types.
 class TextWidget extends StatelessWidget {
   final String? text;
   final TextType? textType;
@@ -28,22 +29,22 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Helpers.getTextTheme(context);
 
-    // Reusable text builder that applies custom styles
+    /// 🧠 [buildText] constructs the [Text] widget with applied styles.
     Text buildText(TextStyle? baseStyle) {
       return Text(
         text ?? 'No name',
         textAlign: alignment ?? TextAlign.center,
+        maxLines: maxLines,
+        overflow: overflow,
         style: baseStyle?.copyWith(
           color: color ?? baseStyle.color,
           fontWeight: fontWeight ?? baseStyle.fontWeight,
           fontSize: fontSize ?? baseStyle.fontSize,
         ),
-        maxLines: maxLines,
-        overflow: overflow,
       );
     }
 
-    // Select the appropriate text style based on the text type
+    /// 🎯 Choose the appropriate style based on [TextType].
     switch (textType) {
       case TextType.headline:
         return buildText(textTheme.headlineMedium);
@@ -71,7 +72,7 @@ class TextWidget extends StatelessWidget {
   }
 }
 
-// Enum to define different types of text widgets
+/// 📑 [TextType] defines the available styles for the [TextWidget].
 enum TextType {
   headline,
   smallHeadline,
