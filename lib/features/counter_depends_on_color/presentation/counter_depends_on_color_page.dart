@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-/* BLoC */
 import '../../../presentation/pages/theme_page.dart';
-
-// import '../../../core/state_managing/app_settings_on_bloc/app_settings_bloc.dart'; // ! When using BLoC as a state-shape handler
-import '../../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart'; // ! When using CUBIT as a state-shape handler
+import '../../../core/config/app_config.dart';
+import '../../../core/state_managing/app_settings_on_cubit/app_settings_cubit.dart';
+import '../../../core/state_managing/app_settings_on_bloc/app_settings_bloc.dart';
 import '../../../core/state_managing/_state_switching_of_counter_which_depends_on_color/factory_for_counter_which_depends_on_color.dart';
 import '../color_on_bloc/color_bloc.dart';
-
-/* CUBIT */
 import '../color_on_cubit/color_cubit.dart';
-
 import '../../../presentation/widgets/text_widget.dart';
 import '../../../core/utils/helpers.dart';
 import '../counter_on_bloc/counter_bloc.dart';
@@ -23,17 +18,19 @@ class CounterDependsOnColorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final counterManager = CounterDependsOnColorFactory.create(context);
-    // ! When using CUBIT as a state-shape handler
-    final isUsingBloc =
-        context.select((AppSettingsOnCubit cubit) => cubit.state.isUseBloc);
-    // ! When using BLoC as a state-shape handler
-    // final isUsingBloc =
-    //     context.select((AppSettingsOnBloc cubit) => cubit.state.isUseBloc);
+
+    final isUsingBloc = AppConfig.isUsingBlocStateShape
+        ? context
+            .select<AppSettingsOnBloc, bool>((bloc) => bloc.state.isUseBloc)
+        : context
+            .select<AppSettingsOnCubit, bool>((cubit) => cubit.state.isUseBloc);
+
+    final backgroundColor = isUsingBloc
+        ? context.watch<ColorOnBloc>().state.color
+        : context.watch<ColorOnCubit>().state.color;
 
     return Scaffold(
-      backgroundColor: isUsingBloc
-          ? context.watch<ColorOnBloc>().state.color // When using BLoC
-          : context.watch<ColorOnCubit>().state.color, // When using CUBIT
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         actions: [
           IconButton(
@@ -69,12 +66,11 @@ class CounterDisplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-// ! When using CUBIT as a state-shape handler
-    final isUsingBloc =
-        context.select((AppSettingsOnCubit cubit) => cubit.state.isUseBloc);
-    // ! When using BLoC as a state-shape handler
-    // final isUsingBloc =
-    //     context.select<AppSettingsOnBloc, bool>((bloc) => bloc.state.isUseBloc);
+    final isUsingBloc = AppConfig.isUsingBlocStateShape
+        ? context
+            .select<AppSettingsOnBloc, bool>((bloc) => bloc.state.isUseBloc)
+        : context
+            .select<AppSettingsOnCubit, bool>((cubit) => cubit.state.isUseBloc);
 
     return isUsingBloc
         ? BlocBuilder<CounterBlocWhichDependsOnColorBLoC,

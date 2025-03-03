@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /* BLoC */
-// import '../../../core/state_managers/app_settings_on_bloc/app_settings_bloc.dart'
-//     as bloc_state;
+import '../../../core/config/app_config.dart';
 import '../counter_on_bloc/counter_bloc.dart';
 
 /* CUBIT */
-// import '../../../core/state_managers/app_settings_on_cubit/ap_settings_cubit.dart'
-//     as cubit_state;
 import '../counter_on_cubit/counter_cubit.dart';
 
 import '../../../presentation/widgets/text_widget.dart';
@@ -22,8 +19,7 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ! When changing state-shape
-    const isBlocActive = false; // ! true якщо BLoC, false якщо Cubit 👈
+    final isBlocActive = AppConfig.isUsingBlocStateShape;
 
     final useBloc =
         CounterFactory.isUseBloc(context, isBlocActive: isBlocActive);

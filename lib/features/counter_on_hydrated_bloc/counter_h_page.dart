@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-
-import '../../core/state_managing/theme/theme_bloc.dart';
-import 'counter_bloc.dart';
+import 'hydrated_counter_bloc/counter_bloc.dart';
 
 class CounterOnHydratedBlocPage extends StatelessWidget {
   const CounterOnHydratedBlocPage({super.key});
@@ -11,15 +9,7 @@ class CounterOnHydratedBlocPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () =>
-                context.read<HydratedThemeBloc>().add(ToggleThemeEvent()),
-            icon: const Icon(Icons.brightness_6),
-          ),
-        ],
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Text(
           '${context.watch<HydratedCounterBloc>().state.counter}',
