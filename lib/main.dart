@@ -33,7 +33,31 @@ void main() async {
 
   runApp(
     MultiBlocProvider(
-      providers: AppConfig.isUsingBlocStateShape
+      providers: [
+        BlocProvider(create: (_) => AppSettingsOnBloc()),
+        BlocProvider(create: (_) => CounterOnBloc()),
+        BlocProvider(create: (_) => ColorOnBloc()),
+        BlocProvider(
+          create: (context) => CounterBlocWhichDependsOnColorBLoC(
+            colorBloc: context.read<ColorOnBloc>(),
+          ),
+        ),
+        BlocProvider(create: (_) => CounterBlocWithTransformers()),
+        BlocProvider(create: (_) => HydratedCounterBloc()),
+
+        // Always include CUBIT providers as well
+        BlocProvider(create: (_) => AppSettingsOnCubit()),
+        BlocProvider(create: (_) => CounterOnCubit()),
+        BlocProvider(create: (_) => ColorOnCubit()),
+        BlocProvider(
+          create: (context) => CounterCubitWhichDependsOnColorCubit(
+            colorCubit: context.read<ColorOnCubit>(),
+          ),
+        ),
+      ],
+
+/*
+ providers: AppConfig.isUsingBlocStateShape
           ? [
               /* BLoC */
               BlocProvider(create: (_) => AppSettingsOnBloc()),
@@ -59,6 +83,7 @@ void main() async {
                 ),
               ),
             ],
+ */
       child: const AppWrapper(),
     ),
   );

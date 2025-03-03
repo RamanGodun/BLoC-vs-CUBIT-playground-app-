@@ -1,3 +1,3 @@
 class AppConfig {
-  static bool isUsingBlocStateShape = true;
+  static bool isUsingBlocStateShape = false;
 }

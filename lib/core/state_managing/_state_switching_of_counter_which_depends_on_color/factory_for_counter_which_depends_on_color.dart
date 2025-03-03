@@ -18,8 +18,10 @@ class CounterDependsOnColorFactory {
   /// Метод `create` повертає правильний `CounterDependsOnColorManager` на основі BLoC або Cubit
   static CounterDependsOnColorManager create(BuildContext context) {
     final useBloc = AppConfig.isUsingBlocStateShape
-        ? context.watch<AppSettingsOnBloc>().state.isUseBloc
-        : context.watch<AppSettingsOnCubit>().state.isUseBloc;
+        ? context
+            .select<AppSettingsOnBloc, bool>((bloc) => bloc.state.isUseBloc)
+        : context
+            .select<AppSettingsOnCubit, bool>((cubit) => cubit.state.isUseBloc);
 
     return useBloc
         ? BlocCounterDependsOnColorManager(
