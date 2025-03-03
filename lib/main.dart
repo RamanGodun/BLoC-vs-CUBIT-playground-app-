@@ -38,6 +38,7 @@ void main() async {
               /* BLoC */
               BlocProvider(create: (_) => AppSettingsOnBloc()),
               BlocProvider(create: (_) => CounterOnBloc()),
+              BlocProvider(create: (_) => CounterOnCubit()),
               BlocProvider(create: (_) => ColorOnBloc()),
               BlocProvider(
                 create: (context) => CounterBlocWhichDependsOnColorBLoC(
