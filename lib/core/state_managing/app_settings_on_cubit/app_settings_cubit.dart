@@ -1,41 +1,39 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'app_settings_state.dart';
 
-class AppSettingsOnCubit extends Cubit<AppSettingsStateOnCubit> {
-  final SharedPreferences _prefs;
+class AppSettingsOnCubit extends HydratedCubit<AppSettingsStateOnCubit> {
+  AppSettingsOnCubit() : super(AppSettingsStateOnCubit.initial());
 
-  AppSettingsOnCubit(this._prefs) : super(AppSettingsStateOnCubit.initial()) {
-    _loadState();
-  }
-
-  Future<void> _loadState() async {
-    final isUseBloc = _prefs.getBool('isUseBloc') ?? true;
-    final isDarkThemeForBloc = _prefs.getBool('isDarkModeBloc') ?? false;
-    final isDarkThemeForCubit = _prefs.getBool('isDarkModeCubit') ?? false;
-
-    emit(state.copyWith(
-      isUseBloc: isUseBloc,
-      isDarkThemeForBloc: isDarkThemeForBloc,
-      isDarkThemeForCubit: isDarkThemeForCubit,
-    ));
-  }
-
-  Future<void> toggleUseBloc() async {
+  void toggleUseBloc() {
     final newUseBloc = !state.isUseBloc;
-    await _prefs.setBool('isUseBloc', newUseBloc);
     emit(state.copyWith(isUseBloc: newUseBloc));
   }
 
-  Future<void> toggleTheme(bool isDarkMode) async {
+  void toggleTheme(bool isDarkMode) {
     if (state.isUseBloc) {
-      await _prefs.setBool('isDarkModeBloc', isDarkMode);
       emit(state.copyWith(isDarkThemeForBloc: isDarkMode));
     } else {
-      await _prefs.setBool('isDarkModeCubit', isDarkMode);
       emit(state.copyWith(isDarkThemeForCubit: isDarkMode));
     }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AppSettingsStateOnCubit state) {
+    return {
+      'isUseBloc': state.isUseBloc,
+      'isDarkThemeForBloc': state.isDarkThemeForBloc,
+      'isDarkThemeForCubit': state.isDarkThemeForCubit,
+    };
+  }
+
+  @override
+  AppSettingsStateOnCubit? fromJson(Map<String, dynamic> json) {
+    return AppSettingsStateOnCubit(
+      isUseBloc: json['isUseBloc'] as bool? ?? true,
+      isDarkThemeForBloc: json['isDarkThemeForBloc'] as bool? ?? false,
+      isDarkThemeForCubit: json['isDarkThemeForCubit'] as bool? ?? false,
+    );
   }
 }

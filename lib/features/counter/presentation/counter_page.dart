@@ -23,7 +23,7 @@ class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ! When changing state-shape
-    const isBlocActive = true; // ! true якщо BLoC, false якщо Cubit 👈
+    const isBlocActive = false; // ! true якщо BLoC, false якщо Cubit 👈
 
     final useBloc =
         CounterFactory.isUseBloc(context, isBlocActive: isBlocActive);
