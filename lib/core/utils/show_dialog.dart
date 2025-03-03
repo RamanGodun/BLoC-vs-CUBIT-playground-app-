@@ -21,7 +21,7 @@ abstract class DialogService {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const TextWidget('OK', TextType.titleMedium),
+            child: const Center(child: TextWidget('OK', TextType.titleMedium)),
           ),
         ],
       ),

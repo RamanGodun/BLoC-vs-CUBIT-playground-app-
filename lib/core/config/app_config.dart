@@ -6,7 +6,7 @@ class AppConfig {
   /// Defines the state management approach for the application.
   /// Switch between [AppSettingsStateManagement.onBloc] and [AppSettingsStateManagement.onCubit].
   static const AppSettingsStateManagement stateManagement =
-      AppSettingsStateManagement.onCubit;
+      AppSettingsStateManagement.onBloc;
 
   /// Utility getter to easily check if BLoC is the active state management approach.
   static bool get isUsingBlocStateShape =>
